@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportVibe — AI Sports Gear</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #FFFFFF;
+            --bg2: #F5F7FA;
+            --bg3: #FFFFFF;
+            --fire: #FF4D00;
+            --fire2: #FF8C00;
+            --volt: #D4FF00;
+            --ice: #00E5FF;
+            --white: #1A1E2B;
+            --muted: #5B6E8C;
+            --border: rgba(0, 0, 0, 0.08);
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #E9ECEF;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--fire);
+            border-radius: 4px;
+        }
+
+        .bg-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(130px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blob-1 {
+            width: 50vw;
+            height: 50vw;
+            background: var(--fire);
+            opacity: .08;
+            top: -15vw;
+            right: -10vw;
+            animation: blobmove 20s infinite alternate ease-in-out;
+        }
+
+        .blob-2 {
+            width: 40vw;
+            height: 40vw;
+            background: var(--volt);
+            opacity: .06;
+            bottom: -10vw;
+            left: -15vw;
+            animation: blobmove 28s infinite alternate-reverse ease-in-out;
+        }
+
+        .blob-3 {
+            width: 30vw;
+            height: 30vw;
+            background: var(--ice);
+            opacity: .05;
+            top: 50%;
+            left: 40%;
+            animation: blobmove 15s infinite alternate;
+        }
+
+        @keyframes blobmove {
+            0% {
+                transform: translate(0, 0) scale(1)
+            }
+
+            100% {
+                transform: translate(4%, 6%) scale(1.15)
+            }
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: rgba(255, 255, 255, .94) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, .06);
+            min-height: 64px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .02);
+        }
+
+        .navbar-brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--fire), var(--fire2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .navbar-brand span {
+            color: var(--volt);
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+        }
+
+        .nav-link {
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #4A5A6E !important;
+            transition: color .2s;
+        }
+
+        .nav-link:hover {
+            color: var(--fire) !important;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(0, 0, 0, .2);
+            padding: 4px 8px;
+        }
+
+        .navbar-toggler-icon {
+            filter: invert(.4);
+        }
+
+        .btn-nav-cta {
+            background: var(--fire);
+            color: #fff;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all .2s;
+            white-space: nowrap;
+        }
+
+        .btn-nav-cta:hover {
+            background: var(--fire2);
+            transform: translateY(-1px);
+            color: #fff;
+        }
+
+        .cart-btn-nav {
+            position: relative;
+            background: rgba(0, 0, 0, .04);
+            border: 1.5px solid rgba(0, 0, 0, .1);
+            border-radius: 8px;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .2s;
+            color: var(--white);
+            font-size: 16px;
+        }
+
+        .cart-btn-nav:hover {
+            border-color: var(--fire);
+            background: rgba(255, 77, 0, .08);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--fire);
+            color: #fff;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 11px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-badge.pop {
+            animation: popbadge .3s var(--ease);
+        }
+
+        @keyframes popbadge {
+            0% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.5)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        /* PAGES */
+        .page {
+            display: none;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+            padding-top: 64px;
+        }
+
+        .page.active {
+            display: block;
+            animation: pagein .45s var(--ease);
+        }
+
+        @keyframes pagein {
+            from {
+                opacity: 0;
+                transform: translateY(14px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 88vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--fire), transparent);
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--fire);
+            margin-bottom: 20px;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 32px;
+            height: 2px;
+            background: var(--fire);
+        }
+
+        .hero h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(52px, 8vw, 110px);
+            font-weight: 900;
+            line-height: .9;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 .accent {
+            -webkit-text-stroke: 2px var(--fire);
+            color: transparent;
+            display: block;
+        }
+
+        .hero h1 .accent2 {
+            background: linear-gradient(90deg, var(--fire), var(--volt));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: block;
+        }
+
+        .hero-sub {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+            margin: 24px 0 32px;
+        }
+
+        /* MOBILE HERO BUTTONS */
+        .btn-fire {
+            background: linear-gradient(90deg, var(--fire), var(--fire2));
+            border: none;
+            padding: 14px 36px;
+            border-radius: 8px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 17px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            cursor: pointer;
+            transition: all .25s;
+        }
+
+        .btn-fire:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(255, 77, 0, .35);
+            color: #fff;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1.5px solid rgba(0, 0, 0, .15);
+            padding: 13px 28px;
+            border-radius: 8px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--fire);
+            color: var(--fire);
+        }
+
+        @media(max-width:576px) {
+            .btn-fire {
+                padding: 10px 22px;
+                font-size: 14px;
+                letter-spacing: 1.5px;
+            }
+
+            .btn-ghost {
+                padding: 9px 18px;
+                font-size: 13px;
+            }
+
+            .hero-btns {
+                gap: 8px !important;
+            }
+
+            .hero h1 {
+                font-size: clamp(46px, 13vw, 80px);
+            }
+        }
+
+        /* STAT BLOCKS */
+        .stat-block {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--fire);
+            border-radius: 12px;
+            padding: 16px 18px;
+            transition: all .3s var(--ease);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .02);
+        }
+
+        .stat-block:hover {
+            background: rgba(255, 77, 0, .03);
+        }
+
+        .stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 40px;
+            color: var(--fire);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* TICKER */
+        .ticker-wrap {
+            background: var(--fire);
+            overflow: hidden;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .ticker-inner {
+            display: inline-flex;
+            animation: ticker 22s linear infinite;
+        }
+
+        .ticker-inner span {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+            padding: 0 40px;
+        }
+
+        .ticker-dot {
+            color: rgba(255, 255, 255, .4);
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translateX(0)
+            }
+
+            100% {
+                transform: translateX(-50%)
+            }
+        }
+
+        /* SECTION */
+        .section-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--fire);
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(30px, 4.5vw, 56px);
+            font-weight: 900;
+            line-height: .95;
+            text-transform: uppercase;
+            letter-spacing: -.5px;
+            color: #0F1A2A;
+        }
+
+        .section-title em {
+            color: var(--fire);
+            font-style: normal;
+        }
+
+        /* ===== HOME AI PANEL (new) ===== */
+        .home-ai-panel {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .04);
+            height: 100%;
+        }
+
+        .home-ai-head {
+            background: linear-gradient(90deg, var(--fire), var(--fire2));
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .home-ai-head-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .home-ai-badge {
+            background: rgba(255, 255, 255, .2);
+            color: #fff;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+
+        .home-ai-body {
+            padding: 16px 18px;
+        }
+
+        .home-ai-login-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 20px;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .home-ai-login-cta .icon {
+            font-size: 36px;
+            opacity: .5;
+        }
+
+        .home-ai-login-cta p {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .rec-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all .25s var(--ease);
+        }
+
+        .rec-card:hover {
+            border-color: var(--fire);
+            transform: translateY(-3px);
+        }
+
+        .rec-card .rec-icon {
+            font-size: 26px;
+            margin-bottom: 6px;
+        }
+
+        .rec-card .rec-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .rec-card .rec-reason {
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .rec-card .rec-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            color: var(--fire);
+        }
+
+        .match-chip {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--fire);
+            background: rgba(255, 77, 0, .08);
+            border-radius: 4px;
+            padding: 2px 8px;
+        }
+
+        /* PRODUCT CARDS */
+        .pcard {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            transition: all .3s var(--ease);
+            overflow: hidden;
+            height: 100%;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, .02);
+        }
+
+        .pcard:hover {
+            border-color: var(--fire);
+            transform: scale(1.02);
+            z-index: 2;
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, .1);
+        }
+
+        .pcard-img {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 52px;
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 77, 0, .03), transparent);
+        }
+
+        .pcard-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--fire);
+            color: #fff;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 10px;
+            letter-spacing: 2px;
+            padding: 2px 8px;
+        }
+
+        .pcard-body {
+            padding: 14px 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .pcard-cat {
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+
+        .pcard-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pcard-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            color: var(--fire);
+        }
+
+        .pcard-add {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1.5px solid var(--fire);
+            background: transparent;
+            color: var(--fire);
+            font-size: 17px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+            padding: 0;
+        }
+
+        .pcard-add:hover {
+            background: var(--fire);
+            color: #fff;
+        }
+
+        /* CART DRAWER */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .55);
+            z-index: 1400;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s;
+            backdrop-filter: blur(4px);
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 400px;
+            max-width: 100vw;
+            background: var(--bg3);
+            border-left: 1px solid var(--border);
+            z-index: 1500;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform .4s var(--ease);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, .05);
+        }
+
+        .cart-drawer.open {
+            transform: translateX(0);
+        }
+
+        .cart-head {
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, .05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cart-head-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .cart-close-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 7px;
+            border: 1px solid rgba(0, 0, 0, .1);
+            background: transparent;
+            color: var(--muted);
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+        }
+
+        .cart-close-btn:hover {
+            border-color: var(--fire);
+            color: var(--fire);
+        }
+
+        .cart-items-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 22px;
+        }
+
+        .cart-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 12px;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, .05);
+        }
+
+        .cart-item-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(255, 77, 0, .05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .cart-item-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .cart-item-cat {
+            font-size: 10px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 2px;
+        }
+
+        .cart-item-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 15px;
+            color: var(--fire);
+            margin-top: 3px;
+        }
+
+        .qty-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 0, 0, .12);
+            background: transparent;
+            color: var(--white);
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .15s;
+            padding: 0;
+        }
+
+        .qty-btn:hover {
+            border-color: var(--fire);
+            color: var(--fire);
+        }
+
+        .qty-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .cart-item-del {
+            width: 26px;
+            height: 26px;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 0, 0, .08);
+            background: transparent;
+            color: var(--muted);
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+            flex-shrink: 0;
+            padding: 0;
+        }
+
+        .cart-item-del:hover {
+            border-color: #ff4444;
+            color: #ff4444;
+            background: rgba(255, 68, 68, .04);
+        }
+
+        .cart-footer-area {
+            padding: 12px 22px 22px;
+            border-top: 1px solid rgba(0, 0, 0, .05);
+        }
+
+        .cart-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .cart-row.total {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(0, 0, 0, .08);
+        }
+
+        .cart-row.total span:last-child {
+            color: var(--fire);
+        }
+
+        .btn-checkout {
+            width: 100%;
+            background: linear-gradient(90deg, var(--fire), var(--fire2));
+            border: none;
+            padding: 13px;
+            border-radius: 10px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            cursor: pointer;
+            transition: all .25s;
+            margin-top: 12px;
+        }
+
+        .btn-checkout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(255, 77, 0, .35);
+        }
+
+        /* CHECKOUT */
+        .checkout-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 40px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -.5px;
+            margin-bottom: 6px;
+            color: #0F1A2A;
+        }
+
+        .step-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .step-item.active {
+            color: var(--white);
+        }
+
+        .step-item.done {
+            color: var(--volt);
+        }
+
+        .step-dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid currentColor;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 12px;
+            flex-shrink: 0;
+            transition: all .3s;
+        }
+
+        .step-item.active .step-dot {
+            background: var(--fire);
+            border-color: var(--fire);
+            color: #fff;
+        }
+
+        .step-item.done .step-dot {
+            background: var(--volt);
+            border-color: var(--volt);
+            color: #000;
+        }
+
+        .step-line {
+            flex: 1;
+            height: 1px;
+            background: rgba(0, 0, 0, .1);
+            margin: 0 10px;
+            transition: background .3s;
+        }
+
+        .step-line.done {
+            background: var(--volt);
+        }
+
+        .co-panel {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 16px;
+            display: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .02);
+        }
+
+        .co-panel.visible {
+            display: block;
+            animation: pagein .4s var(--ease);
+        }
+
+        .co-panel-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .co-panel-title::before {
+            content: '';
+            width: 3px;
+            height: 16px;
+            background: var(--fire);
+            border-radius: 2px;
+        }
+
+        .field-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .field {
+            background: #FAFCFE;
+            border: 1px solid rgba(0, 0, 0, .08);
+            border-radius: 10px;
+            padding: 11px 13px;
+            color: var(--white);
+            width: 100%;
+            font-size: 14px;
+            font-family: 'DM Sans', sans-serif;
+            transition: all .2s;
+            margin-bottom: 12px;
+        }
+
+        .field:focus {
+            outline: none;
+            border-color: var(--fire);
+            box-shadow: 0 0 0 3px rgba(255, 77, 0, .12);
+            background: #fff;
+            color: var(--white);
+        }
+
+        .field option {
+            background: white;
+            color: #1A1E2B;
+        }
+
+        .field::placeholder {
+            color: var(--muted);
+        }
+
+        .pay-opt {
+            background: #FAFCFE;
+            border: 2px solid rgba(0, 0, 0, .06);
+            border-radius: 12px;
+            padding: 12px 10px;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .pay-opt:hover {
+            border-color: rgba(255, 77, 0, .35);
+        }
+
+        .pay-opt.selected {
+            border-color: var(--fire);
+            background: rgba(255, 77, 0, .04);
+        }
+
+        .pay-icon {
+            font-size: 22px;
+        }
+
+        .pay-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .pay-desc {
+            font-size: 10px;
+            color: var(--muted);
+        }
+
+        .pay-detail-box {
+            background: rgba(0, 0, 0, .02);
+            border: 1px solid rgba(0, 0, 0, .06);
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.75;
+            display: none;
+            margin-bottom: 16px;
+        }
+
+        .pay-detail-box.show {
+            display: block;
+            animation: pagein .3s var(--ease);
+        }
+
+        .order-sidebar {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 20px;
+            position: sticky;
+            top: 84px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .02);
+        }
+
+        .order-sidebar-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, .05);
+        }
+
+        .order-item-icon {
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 77, 0, .05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .summary-row.total span:last-child {
+            color: var(--fire);
+        }
+
+        .confirm-block {
+            background: rgba(0, 0, 0, .01);
+            border: 1px solid rgba(0, 0, 0, .05);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .confirm-total {
+            background: rgba(255, 77, 0, .03);
+            border: 1px solid rgba(255, 77, 0, .12);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* SUCCESS & AUTH */
+        .success-card,
+        .auth-card {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 44px 38px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, .05);
+        }
+
+        .auth-card {
+            max-width: 520px;
+            text-align: left;
+        }
+
+        .auth-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 38px;
+            font-weight: 900;
+            letter-spacing: -.5px;
+            text-transform: uppercase;
+        }
+
+        .auth-sub {
+            color: var(--muted);
+            font-size: 13px;
+            margin: 6px 0 22px;
+        }
+
+        .auth-switch {
+            margin-top: 18px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .auth-switch a {
+            color: var(--fire);
+            cursor: pointer;
+        }
+
+        .hchip {
+            background: #F2F5F9;
+            border: 1px solid rgba(0, 0, 0, .08);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .15s;
+            display: inline-block;
+            margin: 3px;
+        }
+
+        .hchip.active {
+            background: rgba(255, 77, 0, .12);
+            border-color: var(--fire);
+            color: var(--fire);
+        }
+
+        /* PROFILE */
+        .profile-banner {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--fire), var(--volt));
+        }
+
+        .avatar {
+            width: 62px;
+            height: 62px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--fire), var(--volt));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 30px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .panel {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 24px;
+            height: 100%;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, .02);
+        }
+
+        .panel-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-title::before {
+            content: '';
+            width: 3px;
+            height: 16px;
+            background: var(--fire);
+            border-radius: 2px;
+        }
+
+        .bmi-bar-bg {
+            background: rgba(0, 0, 0, .06);
+            border-radius: 4px;
+            height: 6px;
+            margin: 12px 0 5px;
+            overflow: hidden;
+        }
+
+        .bmi-bar-fill {
+            height: 6px;
+            background: linear-gradient(90deg, var(--fire), var(--volt));
+            border-radius: 4px;
+            transition: width 1.2s var(--ease);
+        }
+
+        .tag-pill {
+            background: rgba(255, 77, 0, .1);
+            border: 1px solid rgba(255, 77, 0, .2);
+            border-radius: 5px;
+            padding: 3px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--fire);
+            display: inline-block;
+        }
+
+        .ai-badge {
+            background: linear-gradient(90deg, var(--fire), var(--volt));
+            color: #000;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 10px;
+            letter-spacing: 2px;
+            padding: 4px 10px;
+            border-radius: 5px;
+        }
+
+        .ai-loading {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 30px 20px;
+            color: var(--muted);
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255, 77, 0, .2);
+            border-top-color: var(--fire);
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        /* TOAST */
+        .toast-sv {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(40px);
+            background: var(--bg3);
+            border: 1px solid var(--fire);
+            border-radius: 8px;
+            padding: 12px 28px;
+            font-size: 13px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all .25s;
+            z-index: 3000;
+            white-space: nowrap;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, .08);
+        }
+
+        .toast-sv.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .divider {
+            height: 1px;
+            background: rgba(0, 0, 0, .06);
+            margin: 10px 0;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, .05);
+            font-size: 13px;
+        }
+
+        .metric-val {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 5px;
+        }
+
+        .summary-row.total {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--white);
+            padding-top: 8px;
+            margin-top: 6px;
+            border-top: 1px solid rgba(0, 0, 0, .08);
+        }
+
+        .order-item-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .order-item-qty {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .order-item-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            color: var(--fire);
+        }
+
+        .confirm-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .success-icon {
+            font-size: 52px;
+            margin-bottom: 14px;
+        }
+
+        .success-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 42px;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: .95;
+            margin-bottom: 8px;
+        }
+
+        .success-order-box {
+            background: rgba(255, 77, 0, .04);
+            border: 1px solid rgba(255, 77, 0, .15);
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin: 16px 0;
+        }
+
+        .success-order-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            color: var(--fire);
+        }
+
+        .success-item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            text-align: left;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, .05);
+        }
+
+        /* HOME AI SECTION LAYOUT */
+        #home-ai-section {
+            display: none;
+        }
+
+        #home-ai-section.show {
+            display: block;
+            animation: pagein .5s var(--ease);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid px-3 px-md-4">
+            <a class="navbar-brand" href="#" onclick="showPage('home')">SPORT<span>VIBE</span></a>
+            <div class="d-flex align-items-center gap-2 d-lg-none ms-auto">
+                <button class="cart-btn-nav" onclick="openCart()">🛒<span class="cart-badge"
+                        id="cart-count-m">0</span></button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navMain">
+                <ul class="navbar-nav me-auto ms-3 gap-1">
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('home')">Beranda</a></li>
+                    <li class="nav-item" id="nav-profile-link" style="display:none"><a class="nav-link" href="#"
+                            onclick="showPage('profile')">Dashboard AI</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="scrollProducts()">Produk</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-2 mt-2 mt-lg-0">
+                    <button class="cart-btn-nav d-none d-lg-flex" onclick="openCart()">🛒<span class="cart-badge"
+                            id="cart-count">0</span></button>
+                    <div id="nav-auth"><button class="btn-nav-cta" onclick="showPage('login')">Masuk →</button></div>
+                    <div id="nav-user" style="display:none;" class="d-flex align-items-center gap-2">
+                        <span id="nav-greeting" style="font-size:11px;color:var(--muted);letter-spacing:1px;"></span>
+                        <button class="btn-nav-cta" onclick="showPage('profile')">Dashboard</button>
+                        <button
+                            style="background:transparent;border:1px solid rgba(0,0,0,.12);border-radius:6px;padding:6px 14px;color:var(--muted);font-size:10px;letter-spacing:1px;cursor:pointer;"
+                            onclick="logout()">Keluar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CART DRAWER -->
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-head">
+            <div class="cart-head-title">🛒 Keranjang</div>
+            <button class="cart-close-btn" onclick="closeCart()">✕</button>
+        </div>
+        <div class="cart-items-list" id="cart-items-list"></div>
+        <div class="cart-footer-area" id="cart-footer" style="display:none;">
+            <div id="cart-summary-area"></div>
+            <button class="btn-checkout" onclick="goCheckout()">Lanjut Checkout →</button>
+        </div>
+    </div>
+
+    <!-- ===== HOME ===== -->
+    <div class="page active" id="page-home">
+        <section class="hero py-5">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <div class="hero-eyebrow">AI-Powered Sports Intelligence</div>
+                        <h1>GEAR<br><span class="accent">YOUR</span><span class="accent2">GAME</span></h1>
+                        <p class="hero-sub">AI mutakhir menganalisis data fisik & hobi olahragamu — menghadirkan
+                            rekomendasi perlengkapan yang paling presisi, personal, dan powerful.</p>
+                        <div class="d-flex gap-3 flex-wrap hero-btns">
+                            <button class="btn-fire" onclick="showPage('register')">⚡ Mulai Gratis</button>
+                            <button class="btn-ghost" onclick="scrollProducts()">Lihat Produk</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 d-none d-lg-block">
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="stat-block">
+                                    <div class="stat-num">12K+</div>
+                                    <div class="stat-label">Atlet Terdaftar</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-block">
+                                    <div class="stat-num">98%</div>
+                                    <div class="stat-label">Akurasi Rekomendasi AI</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-block">
+                                    <div class="stat-num">3.2s</div>
+                                    <div class="stat-label">Analisis Real-time</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-block">
+                                    <div class="stat-num">60+</div>
+                                    <div class="stat-label">Brand Premium</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="ticker-wrap">
+            <div class="ticker-inner">
+                <span>SEPATU LARI <span class="ticker-dot">◆</span></span><span>PERLENGKAPAN GYM <span
+                        class="ticker-dot">◆</span></span><span>JERSEY PREMIUM <span
+                        class="ticker-dot">◆</span></span><span>REKOMENDASI AI <span
+                        class="ticker-dot">◆</span></span><span>BADMINTON <span
+                        class="ticker-dot">◆</span></span><span>HIKING GEAR <span
+                        class="ticker-dot">◆</span></span><span>YOGA MAT <span
+                        class="ticker-dot">◆</span></span><span>BOXING <span class="ticker-dot">◆</span></span>
+                <span>SEPATU LARI <span class="ticker-dot">◆</span></span><span>PERLENGKAPAN GYM <span
+                        class="ticker-dot">◆</span></span><span>JERSEY PREMIUM <span
+                        class="ticker-dot">◆</span></span><span>REKOMENDASI AI <span
+                        class="ticker-dot">◆</span></span><span>BADMINTON <span
+                        class="ticker-dot">◆</span></span><span>HIKING GEAR <span
+                        class="ticker-dot">◆</span></span><span>YOGA MAT <span
+                        class="ticker-dot">◆</span></span><span>BOXING <span class="ticker-dot">◆</span></span>
+            </div>
+        </div>
+
+        <!-- AI RECOMMENDATION ON HOME (visible after login) -->
+        <section id="home-ai-section" class="py-4">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-3">
+                        <div class="home-ai-panel">
+                            <div class="home-ai-head">
+                                <div class="home-ai-head-title">⚡ AI Profile</div>
+                                <div class="home-ai-badge">LIVE</div>
+                            </div>
+                            <div class="home-ai-body" id="home-ai-profile-body">
+                                <div class="home-ai-login-cta">
+                                    <div class="icon">🤖</div>
+                                    <p>Login untuk melihat profil AI personalmu</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="home-ai-panel">
+                            <div class="home-ai-head">
+                                <div class="home-ai-head-title">🎯 Rekomendasi AI Untukmu</div>
+                                <div class="home-ai-badge">DEEP LEARNING</div>
+                            </div>
+                            <div class="home-ai-body" id="home-ai-recs-body">
+                                <div class="home-ai-login-cta">
+                                    <div class="icon">✨</div>
+                                    <p>Masuk atau daftar untuk mendapatkan rekomendasi gear yang dipersonalisasi AI
+                                        berdasarkan profil fisikmu</p>
+                                    <div class="d-flex gap-2 mt-1">
+                                        <button class="btn-fire" style="padding:9px 20px;font-size:13px;"
+                                            onclick="showPage('login')">Masuk</button>
+                                        <button class="btn-ghost" style="padding:8px 16px;font-size:13px;"
+                                            onclick="showPage('register')">Daftar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5" id="products-sec">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-end mb-4">
+                    <div>
+                        <div class="section-tag">// Katalog Produk</div>
+                        <div class="section-title">GEAR <em>TERLARIS</em></div>
+                    </div>
+                    <div style="font-size:11px;color:var(--muted);letter-spacing:1px;">12 PRODUK PILIHAN ↓</div>
+                </div>
+                <div class="row g-2" id="products-grid"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="page" id="page-login">
+        <div class="d-flex align-items-center justify-content-center min-vh-100 py-5 px-3">
+            <div class="auth-card">
+                <div class="auth-title">Welcome<br>Back.</div>
+                <div class="auth-sub">Masuk untuk akses rekomendasi AI personalmu</div>
+                <div class="field-label">Email</div><input class="field" id="login-email" placeholder="nama@email.com">
+                <div class="field-label">Password</div><input class="field" id="login-pass" type="password"
+                    placeholder="••••••••">
+                <button class="btn-fire w-100 mt-2" onclick="doLogin()">Masuk →</button>
+                <div class="auth-switch">Belum punya akun? <a onclick="showPage('register')">Daftar Sekarang</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="page" id="page-register">
+        <div class="d-flex align-items-center justify-content-center min-vh-100 py-5 px-3">
+            <div class="auth-card" style="max-width:620px;">
+                <div class="auth-title">Daftar &<br>Raih Potensi.</div>
+                <div class="auth-sub">Isi data diri untuk rekomendasi AI yang presisi</div>
+                <div class="row g-3 mb-2">
+                    <div class="col-md-6">
+                        <div class="field-label">Nama Lengkap</div><input class="field" id="reg-name"
+                            placeholder="John Doe">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="field-label">Email</div><input class="field" id="reg-email"
+                            placeholder="email@kamu.com">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="field-label">Password</div><input class="field" id="reg-pass" type="password"
+                            placeholder="Min 8 karakter">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="field-label">Gender</div>
+                        <select class="field" id="reg-gender">
+                            <option value="">Pilih Gender</option>
+                            <option>Pria</option>
+                            <option>Wanita</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="field-label">Tinggi (cm)</div><input class="field" id="reg-tb" type="number"
+                            placeholder="175">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="field-label">Berat (kg)</div><input class="field" id="reg-bb" type="number"
+                            placeholder="70">
+                    </div>
+                    <div class="col-12">
+                        <div class="field-label">Tanggal Lahir</div>
+                        <input class="field" id="reg-dob" type="date" style="max-width:220px;" max="">
+                        <div id="reg-age-display"
+                            style="font-size:12px;color:var(--muted);margin-top:-8px;margin-bottom:12px;"></div>
+                    </div>
+                </div>
+                <div class="field-label">🏅 Hobi Olahraga <span style="color:var(--fire);">(pilih semua yang
+                        sesuai)</span></div>
+                <div id="hobby-grid" class="mb-3"></div>
+                <button class="btn-fire w-100" onclick="doRegister()">⚡ Daftar & Analisis AI</button>
+                <div class="auth-switch">Sudah punya akun? <a onclick="showPage('login')">Masuk</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT -->
+    <div class="page" id="page-checkout">
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="checkout-title">Checkout</div>
+                    <div style="color:var(--muted);font-size:13px;margin-bottom:20px;">Selesaikan pesananmu dengan aman
+                    </div>
+                    <div class="step-bar mb-4">
+                        <div class="step-item active" id="step-1">
+                            <div class="step-dot">1</div><span>Pengiriman</span>
+                        </div>
+                        <div class="step-line" id="sline-1"></div>
+                        <div class="step-item" id="step-2">
+                            <div class="step-dot">2</div><span>Pembayaran</span>
+                        </div>
+                        <div class="step-line" id="sline-2"></div>
+                        <div class="step-item" id="step-3">
+                            <div class="step-dot">3</div><span>Konfirmasi</span>
+                        </div>
+                    </div>
+                    <div class="co-panel visible" id="panel-1">
+                        <div class="co-panel-title">Alamat Pengiriman</div>
+                        <div class="field-label">Nama Penerima</div><input class="field" id="co-nama"
+                            placeholder="Nama lengkap penerima">
+                        <div class="field-label">Nomor HP / WhatsApp</div><input class="field" id="co-hp"
+                            placeholder="08xxxxxxxxxx" type="tel">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="field-label">Provinsi</div>
+                                <select class="field" id="co-prov">
+                                    <option value="">Pilih Provinsi</option>
+                                    <option>DKI Jakarta</option>
+                                    <option>Jawa Barat</option>
+                                    <option>Jawa Tengah</option>
+                                    <option>Jawa Timur</option>
+                                    <option>Banten</option>
+                                    <option>Sumatera Utara</option>
+                                    <option>Bali</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="field-label">Kota / Kabupaten</div><input class="field" id="co-kota"
+                                    placeholder="Nama kota">
+                            </div>
+                        </div>
+                        <div class="field-label">Alamat Lengkap</div><textarea class="field" id="co-alamat"
+                            placeholder="Jl. ..., RT/RW, Kelurahan, Kecamatan" rows="3"
+                            style="resize:vertical;"></textarea>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="field-label">Kode Pos</div><input class="field" id="co-pos"
+                                    placeholder="60xxx" type="number">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="field-label">Layanan Pengiriman</div>
+                                <select class="field" id="co-kurir">
+                                    <option value="">Pilih Kurir</option>
+                                    <option value="15000">JNE REG — Rp 15.000 (3-5 hari)</option>
+                                    <option value="28000">JNE YES — Rp 28.000 (1 hari)</option>
+                                    <option value="0">Gratis Ongkir (min. Rp 500K)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn-fire mt-2" onclick="nextStep(2)">Lanjut ke Pembayaran →</button>
+                    </div>
+                    <div class="co-panel" id="panel-2">
+                        <div class="co-panel-title">Metode Pembayaran</div>
+                        <div class="row g-2 mb-3" id="pay-grid"></div>
+                        <div class="pay-detail-box" id="pay-detail-box"></div>
+                        <div class="d-flex gap-3"><button class="btn-ghost" onclick="nextStep(1)">←
+                                Kembali</button><button class="btn-fire" onclick="nextStep(3)">Periksa Pesanan
+                                →</button></div>
+                    </div>
+                    <div class="co-panel" id="panel-3">
+                        <div class="co-panel-title">Konfirmasi Pesanan</div>
+                        <div id="confirm-area"></div>
+                        <div class="d-flex gap-3 mt-3"><button class="btn-ghost" onclick="nextStep(2)">←
+                                Kembali</button><button class="btn-fire" onclick="placeOrder()">✅ Bayar
+                                Sekarang</button></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="order-sidebar">
+                        <div class="order-sidebar-title">Ringkasan Pesanan</div>
+                        <div id="sidebar-items"></div>
+                        <div class="divider"></div>
+                        <div id="sidebar-summary"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="page" id="page-success">
+        <div class="d-flex align-items-center justify-content-center min-vh-100 py-5 px-3">
+            <div class="success-card">
+                <div class="success-icon">🎉</div>
+                <div class="success-title">Pesanan<br>Diterima!</div>
+                <p style="color:var(--muted);font-size:14px;margin-top:6px;">Terima kasih! Pesananmu sedang diproses
+                    oleh tim SportVibe.</p>
+                <div class="success-order-box">
+                    <div style="font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:4px;">NOMOR PESANAN
+                    </div>
+                    <div class="success-order-num" id="success-order-num">#SV-000000</div>
+                </div>
+                <div id="success-items" class="w-100 mb-3"></div>
+                <div style="background:rgba(255,77,0,.03);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--muted);margin-bottom:20px;text-align:left;"
+                    id="success-pay-info"></div>
+                <button class="btn-fire w-100" onclick="backHome()">⚡ Lanjut Belanja</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="page" id="page-profile">
+        <div class="container py-4 pb-5">
+            <div class="profile-banner mb-4">
+                <div class="d-flex gap-4 align-items-center">
+                    <div class="avatar" id="profile-avatar">?</div>
+                    <div id="profile-header-data"></div>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="panel">
+                        <div class="panel-title">Analisis Fisik</div>
+                        <div id="physic-data"></div>
+                        <div class="bmi-bar-bg">
+                            <div class="bmi-bar-fill" id="bmi-fill" style="width:0%"></div>
+                        </div>
+                        <div id="bmi-category" style="font-size:12px;color:var(--muted);"></div>
+                        <div class="mt-4">
+                            <div class="panel-title mb-3" style="margin-bottom:14px!important;">Hobi Aktif</div>
+                            <div id="hobby-list-profile" class="d-flex flex-wrap gap-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="panel">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="panel-title mb-0" style="margin-bottom:0!important;">AI Recommendation Engine
+                            </div>
+                            <div class="ai-badge">DEEP LEARNING</div>
+                        </div>
+                        <div id="rec-content">
+                            <div class="ai-loading">
+                                <div class="spinner"></div> Menganalisis biometrik...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-sv" class="toast-sv"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const HOBBIES = [
+            { id: 'lari', label: 'Lari', icon: '🏃' }, { id: 'gym', label: 'Gym', icon: '🏋️' },
+            { id: 'sepak-bola', label: 'Sepak Bola', icon: '⚽' }, { id: 'basket', label: 'Basket', icon: '🏀' },
+            { id: 'renang', label: 'Renang', icon: '🏊' }, { id: 'bersepeda', label: 'Bersepeda', icon: '🚴' },
+            { id: 'yoga', label: 'Yoga', icon: '🧘' }, { id: 'badminton', label: 'Badminton', icon: '🏸' },
+            { id: 'tenis', label: 'Tenis', icon: '🎾' }, { id: 'hiking', label: 'Hiking', icon: '🏔️' },
+            { id: 'boxing', label: 'Boxing', icon: '🥊' }, { id: 'voli', label: 'Voli', icon: '🏐' }
+        ];
+        const PRODUCTS = [
+            { id: 1, name: 'X-Speed Carbon', cat: 'Lari', icon: '👟', raw: 899000, price: 'Rp 899K', badge: 'BEST', hobbies: ['lari', 'gym'] },
+            { id: 2, name: 'NeoDumbbell Set 25kg', cat: 'Gym', icon: '🏋️', raw: 590000, price: 'Rp 590K', badge: null, hobbies: ['gym'] },
+            { id: 3, name: 'Strike Pro Ball', cat: 'Sepak Bola', icon: '⚽', raw: 349000, price: 'Rp 349K', badge: 'NEW', hobbies: ['sepak-bola'] },
+            { id: 4, name: 'AeroRacket Carbon', cat: 'Badminton', icon: '🏸', raw: 720000, price: 'Rp 720K', badge: 'LIMITED', hobbies: ['badminton'] },
+            { id: 5, name: 'EcoGrip Mat Pro', cat: 'Yoga', icon: '🧘', raw: 299000, price: 'Rp 299K', badge: null, hobbies: ['yoga'] },
+            { id: 6, name: 'Helm Aeroflux', cat: 'Bersepeda', icon: '🚴', raw: 520000, price: 'Rp 520K', badge: null, hobbies: ['bersepeda'] },
+            { id: 7, name: 'Thunder Boxing Gloves', cat: 'Boxing', icon: '🥊', raw: 450000, price: 'Rp 450K', badge: 'BEST', hobbies: ['boxing'] },
+            { id: 8, name: 'Hyper Dunk Jersey', cat: 'Basket', icon: '🏀', raw: 240000, price: 'Rp 240K', badge: null, hobbies: ['basket'] },
+            { id: 9, name: 'AquaView Goggles', cat: 'Renang', icon: '🏊', raw: 210000, price: 'Rp 210K', badge: null, hobbies: ['renang'] },
+            { id: 10, name: 'TrailBreaker Boots', cat: 'Hiking', icon: '🥾', raw: 1190000, price: 'Rp 1.190K', badge: 'HOT', hobbies: ['hiking'] },
+            { id: 11, name: 'Graphite Strike', cat: 'Tenis', icon: '🎾', raw: 890000, price: 'Rp 890K', badge: null, hobbies: ['tenis'] },
+            { id: 12, name: 'ResiLoop Bands', cat: 'Gym/Yoga', icon: '🔗', raw: 189000, price: 'Rp 189K', badge: null, hobbies: ['gym', 'yoga'] }
+        ];
+        const PAYS = [
+            { id: 'bca', name: 'BCA Transfer', icon: '🏦', desc: 'Bank Central Asia', detail: `<strong>Rekening BCA</strong><br>No. Rek: <code>1234567890</code><br>A.N: PT SportVibe Indonesia<br>Konfirmasi via WhatsApp setelah transfer.` },
+            { id: 'bri', name: 'BRI Transfer', icon: '🏛️', desc: 'Bank Rakyat Indonesia', detail: `<strong>Rekening BRI</strong><br>No. Rek: <code>0987654321</code><br>A.N: PT SportVibe Indonesia` },
+            { id: 'gopay', name: 'GoPay', icon: '💚', desc: 'Dompet Gojek', detail: `<strong>GoPay</strong><br>No. GoPay: <code>0812-3456-7890</code>` },
+            { id: 'ovo', name: 'OVO', icon: '💜', desc: 'Dompet OVO', detail: `<strong>OVO</strong><br>No. OVO: <code>0898-7654-3210</code>` },
+            { id: 'dana', name: 'DANA', icon: '💙', desc: 'Dompet DANA', detail: `<strong>DANA</strong><br>No. DANA: <code>0856-1234-5678</code>` },
+            { id: 'qris', name: 'QRIS', icon: '📱', desc: 'Scan QR universal', detail: `<strong>QRIS Universal</strong><br>Scan QR menggunakan aplikasi bank atau e-wallet manapun.` },
+            { id: 'cod', name: 'Bayar di Tempat', icon: '💵', desc: 'Cash On Delivery', detail: `<strong>Cash on Delivery (COD)</strong><br>Bayar tunai saat paket tiba. Tersedia di Jabodetabek, Surabaya, Bandung, Medan.` },
+            { id: 'cc', name: 'Kartu Kredit', icon: '💳', desc: 'Visa / Mastercard', detail: `<strong>Kartu Kredit / Debit</strong><br>Visa & Mastercard. Cicilan 0% untuk pembelian di atas Rp 500.000.` }
+        ];
+
+        let currentUser = null, selectedHobbies = [], cart = [], selectedPay = null;
+        const rp = n => 'Rp ' + n.toLocaleString('id-ID');
+
+        // --- DOB helpers ---
+        function calcAge(dob) {
+            const today = new Date(), birth = new Date(dob);
+            let age = today.getFullYear() - birth.getFullYear();
+            const m = today.getMonth() - birth.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+            return age;
+        }
+        function formatDOB(dob) {
+            const d = new Date(dob);
+            return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+        }
+
+        // --- CART ---
+        function addToCart(id) {
+            const p = PRODUCTS.find(x => x.id === id), ex = cart.find(c => c.id === id);
+            if (ex) ex.qty++; else cart.push({ ...p, qty: 1 });
+            updateCartBadge(); toast('✓ ' + p.name + ' ditambahkan', '#D4FF00'); renderCart();
+        }
+        function removeFromCart(id) { cart = cart.filter(c => c.id !== id); updateCartBadge(); renderCart(); }
+        function changeQty(id, d) { const item = cart.find(c => c.id === id); if (!item) return; item.qty += d; if (item.qty <= 0) { removeFromCart(id); return; } updateCartBadge(); renderCart(); }
+        function updateCartBadge() {
+            const n = cart.reduce((s, c) => s + c.qty, 0);
+            ['cart-count', 'cart-count-m'].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.textContent = n; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
+            });
+        }
+        function cartSubtotal() { return cart.reduce((s, c) => s + (c.raw * c.qty), 0); }
+        function renderCart() {
+            const list = document.getElementById('cart-items-list'), footer = document.getElementById('cart-footer'), sumarea = document.getElementById('cart-summary-area');
+            if (cart.length === 0) {
+                list.innerHTML = `<div class="cart-empty"><div style="font-size:44px;opacity:.35;">🛒</div><div style="font-weight:600;color:var(--white);">Keranjang masih kosong</div><div style="font-size:13px;">Tambahkan produk untuk mulai belanja</div><button class="btn-fire mt-3" style="padding:10px 24px;font-size:14px;" onclick="closeCart()">Jelajahi Produk</button></div>`;
+                footer.style.display = 'none'; return;
+            }
+            footer.style.display = 'block';
+            list.innerHTML = cart.map(c => `<div class="cart-item"><div class="cart-item-icon">${c.icon}</div><div style="flex:1;min-width:0;"><div class="cart-item-name">${c.name}</div><div class="cart-item-cat">${c.cat}</div><div class="cart-item-price">${rp(c.raw)}</div><div class="d-flex align-items-center gap-2 mt-2"><button class="qty-btn" onclick="changeQty(${c.id},-1)">−</button><span class="qty-num">${c.qty}</span><button class="qty-btn" onclick="changeQty(${c.id},1)">+</button></div></div><button class="cart-item-del" onclick="removeFromCart(${c.id})">🗑</button></div>`).join('');
+            const sub = cartSubtotal(), totalQty = cart.reduce((s, c) => s + c.qty, 0);
+            sumarea.innerHTML = `<div class="cart-row"><span>${totalQty} item</span><span>${rp(sub)}</span></div><div class="cart-row total"><span>Subtotal</span><span>${rp(sub)}</span></div>`;
+        }
+        function openCart() { renderCart(); document.getElementById('cart-overlay').classList.add('open'); document.getElementById('cart-drawer').classList.add('open'); document.body.style.overflow = 'hidden'; }
+        function closeCart() { document.getElementById('cart-overlay').classList.remove('open'); document.getElementById('cart-drawer').classList.remove('open'); document.body.style.overflow = ''; }
+        function goCheckout() { if (cart.length === 0) return toast('Keranjang masih kosong!', '#FF4D00'); closeCart(); selectedPay = null; renderPayGrid(); setStep(1); renderSidebar(); showPage('checkout'); }
+
+        // --- CHECKOUT STEPS ---
+        let curStep = 1;
+        function setStep(n) {
+            curStep = n;
+            [1, 2, 3].forEach(i => {
+                document.getElementById('panel-' + i).classList.toggle('visible', i === n);
+                const s = document.getElementById('step-' + i); s.classList.remove('active', 'done');
+                if (i === n) s.classList.add('active'); else if (i < n) s.classList.add('done');
+                if (i < 3) document.getElementById('sline-' + i).classList.toggle('done', i < n);
+            });
+        }
+        function nextStep(n) {
+            if (n === 2) {
+                const nm = document.getElementById('co-nama').value.trim(), hp = document.getElementById('co-hp').value.trim(), prov = document.getElementById('co-prov').value, kota = document.getElementById('co-kota').value.trim(), alamat = document.getElementById('co-alamat').value.trim(), pos = document.getElementById('co-pos').value.trim(), kurir = document.getElementById('co-kurir').value;
+                if (!nm || !hp || !prov || !kota || !alamat || !pos || !kurir) return toast('Lengkapi semua data pengiriman!', '#FF4D00');
+            }
+            if (n === 3) { if (!selectedPay) return toast('Pilih metode pembayaran!', '#FF4D00'); buildConfirm(); }
+            setStep(n); renderSidebar(); window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        function renderPayGrid() {
+            document.getElementById('pay-grid').innerHTML = PAYS.map(m => `<div class="col-6 col-md-3"><div class="pay-opt" id="popt-${m.id}" onclick="selectPay('${m.id}')"><div class="pay-icon">${m.icon}</div><div class="pay-name">${m.name}</div><div class="pay-desc">${m.desc}</div></div></div>`).join('');
+        }
+        function selectPay(id) {
+            selectedPay = id;
+            document.querySelectorAll('.pay-opt').forEach(el => el.classList.remove('selected'));
+            document.getElementById('popt-' + id).classList.add('selected');
+            const m = PAYS.find(x => x.id === id), box = document.getElementById('pay-detail-box');
+            box.innerHTML = m.detail; box.classList.add('show');
+        }
+        function buildConfirm() {
+            const nm = document.getElementById('co-nama').value, hp = document.getElementById('co-hp').value, kota = document.getElementById('co-kota').value, prov = document.getElementById('co-prov').value, alamat = document.getElementById('co-alamat').value, pos = document.getElementById('co-pos').value, kurirEl = document.getElementById('co-kurir'), kurirText = kurirEl.options[kurirEl.selectedIndex].text, ongkir = parseInt(kurirEl.value) || 0, pay = PAYS.find(m => m.id === selectedPay), sub = cartSubtotal(), total = sub + ongkir;
+            document.getElementById('confirm-area').innerHTML = `<div class="confirm-block"><div class="confirm-label">📦 Detail Pengiriman</div><div style="font-weight:600;font-size:15px;">${nm}</div><div style="color:var(--muted);font-size:13px;margin:3px 0;">${hp}</div><div style="color:var(--muted);font-size:13px;">${alamat}, ${kota}, ${prov} ${pos}</div><div style="color:var(--fire);font-size:12px;font-weight:600;margin-top:6px;">${kurirText}</div></div><div class="confirm-block"><div class="confirm-label">💳 Metode Pembayaran</div><div style="font-size:22px;">${pay.icon} <span style="font-family:'Barlow Condensed';font-size:20px;font-weight:700;vertical-align:middle;">${pay.name}</span></div></div><div class="confirm-total"><div class="summary-row"><span>Subtotal produk</span><span>${rp(sub)}</span></div><div class="summary-row"><span>Ongkos kirim</span><span>${ongkir === 0 ? '<span style="color:var(--volt);">GRATIS</span>' : rp(ongkir)}</span></div><div class="summary-row total"><span>Total Bayar</span><span>${rp(total)}</span></div></div>`;
+        }
+        function renderSidebar() {
+            const ongkir = parseInt(document.getElementById('co-kurir')?.value) || 0, sub = cartSubtotal();
+            document.getElementById('sidebar-items').innerHTML = cart.map(c => `<div class="order-item"><div class="order-item-icon">${c.icon}</div><div style="flex:1"><div class="order-item-name">${c.name}</div><div class="order-item-qty">${c.qty}x</div></div><div class="order-item-price">${rp(c.raw * c.qty)}</div></div>`).join('');
+            document.getElementById('sidebar-summary').innerHTML = `<div class="summary-row"><span>Subtotal</span><span>${rp(sub)}</span></div><div class="summary-row"><span>Ongkos kirim</span><span>${ongkir === 0 ? '—' : rp(ongkir)}</span></div><div class="summary-row total"><span>Total</span><span>${rp(sub + ongkir)}</span></div>`;
+        }
+        function placeOrder() {
+            const ongkir = parseInt(document.getElementById('co-kurir').value) || 0, sub = cartSubtotal(), total = sub + ongkir, pay = PAYS.find(m => m.id === selectedPay), orderNum = 'SV-' + Date.now().toString().slice(-6);
+            document.getElementById('success-order-num').textContent = '#' + orderNum;
+            document.getElementById('success-items').innerHTML = cart.map(c => `<div class="success-item"><div style="font-size:20px;">${c.icon}</div><div style="flex:1"><div style="font-weight:600;font-size:13px;">${c.name}</div><div style="font-size:11px;color:var(--muted);">${c.qty}x ${rp(c.raw)}</div></div><div style="font-family:'Bebas Neue';font-size:15px;color:var(--fire);">${rp(c.raw * c.qty)}</div></div>`).join('');
+            document.getElementById('success-pay-info').innerHTML = `<div style="margin-bottom:6px;">${pay.icon} <strong style="color:var(--white);">${pay.name}</strong></div><div>Total: <strong style="color:var(--fire);font-family:'Bebas Neue';font-size:18px;">${rp(total)}</strong></div>`;
+            cart = []; updateCartBadge(); showPage('success');
+        }
+        function backHome() { selectedPay = null; showPage('home'); }
+
+        // --- REGISTER/LOGIN ---
+        function renderHobbies() {
+            const c = document.getElementById('hobby-grid');
+            if (c) c.innerHTML = HOBBIES.map(h => `<div class="hchip" id="chip-${h.id}" onclick="toggleHobby('${h.id}')">${h.icon} ${h.label}</div>`).join('');
+        }
+        function toggleHobby(id) {
+            const chip = document.getElementById('chip-' + id);
+            if (selectedHobbies.includes(id)) { selectedHobbies = selectedHobbies.filter(h => h !== id); chip.classList.remove('active'); }
+            else { selectedHobbies.push(id); chip.classList.add('active'); }
+        }
+
+        function doLogin() {
+            const email = document.getElementById('login-email').value.trim(), pass = document.getElementById('login-pass').value;
+            if (!email || !pass) return toast('Isi semua data', '#FF4D00');
+            const stored = localStorage.getItem('sv_' + email);
+            if (!stored) return toast('Akun tidak ditemukan', '#FF4D00');
+            const user = JSON.parse(stored);
+            if (user.pass !== pass) return toast('Password salah', '#FF4D00');
+            currentUser = user; sessionStorage.setItem('sv_user', JSON.stringify(user));
+            updateNav(); renderHomeAI();
+            toast('Selamat datang ' + user.name.split(' ')[0] + '! ⚡', '#D4FF00');
+            setTimeout(() => showPage('profile'), 700);
+        }
+        function doRegister() {
+            const name = document.getElementById('reg-name').value.trim(), email = document.getElementById('reg-email').value.trim(), pass = document.getElementById('reg-pass').value, tb = document.getElementById('reg-tb').value, bb = document.getElementById('reg-bb').value, dob = document.getElementById('reg-dob').value, gender = document.getElementById('reg-gender').value;
+            if (!name || !email || !pass || !tb || !bb || !dob || !gender) return toast('Lengkapi semua data!', '#FF4D00');
+            if (selectedHobbies.length === 0) return toast('Pilih minimal 1 hobi olahraga', '#FF4D00');
+            if (pass.length < 8) return toast('Password min 8 karakter', '#FF4D00');
+            const usia = calcAge(dob);
+            if (usia < 5 || usia > 120) return toast('Tanggal lahir tidak valid', '#FF4D00');
+            const user = { name, email, pass, tb: +tb, bb: +bb, dob, usia, gender, hobbies: [...selectedHobbies] };
+            localStorage.setItem('sv_' + email, JSON.stringify(user));
+            currentUser = user; sessionStorage.setItem('sv_user', JSON.stringify(user));
+            updateNav(); renderHomeAI();
+            toast('Akun dibuat! AI siap bekerja. ⚡', '#D4FF00');
+            setTimeout(() => showPage('profile'), 800);
+        }
+
+        // --- PROFILE ---
+        function renderProfile() {
+            const u = currentUser, bmi = (u.bb / ((u.tb / 100) ** 2)).toFixed(1);
+            let cat = '', pct = 40;
+            if (bmi < 18.5) { cat = 'Underweight'; pct = 25; }
+            else if (bmi < 25) { cat = 'Ideal ✅'; pct = 55; }
+            else if (bmi < 30) { cat = 'Overweight'; pct = 72; }
+            else { cat = 'Obesitas'; pct = 88; }
+            document.getElementById('profile-avatar').textContent = u.name.charAt(0).toUpperCase();
+            const ageStr = u.dob ? `${calcAge(u.dob)} Tahun` : `${u.usia} Tahun`;
+            document.getElementById('profile-header-data').innerHTML = `<div><div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;">${u.name}</div><div style="color:var(--muted);font-size:13px;margin:3px 0 10px;">${u.email}</div><div class="d-flex gap-2 flex-wrap"><div class="tag-pill">${u.gender}</div><div class="tag-pill">${ageStr}</div>${u.dob ? `<div class="tag-pill">${formatDOB(u.dob)}</div>` : ''}<div class="tag-pill">${u.hobbies.length} Hobi Aktif</div></div></div>`;
+            document.getElementById('physic-data').innerHTML = `<div class="metric-row"><span>Tinggi Badan</span><span class="metric-val">${u.tb} cm</span></div><div class="metric-row"><span>Berat Badan</span><span class="metric-val">${u.bb} kg</span></div><div class="metric-row"><span>BMI Score</span><span class="metric-val" style="color:var(--volt);">${bmi}</span></div><div class="metric-row"><span>Usia</span><span class="metric-val">${ageStr}</span></div>`;
+            document.getElementById('bmi-fill').style.width = pct + '%';
+            document.getElementById('bmi-category').innerHTML = 'Kategori BMI: <strong>' + cat + '</strong>';
+            document.getElementById('hobby-list-profile').innerHTML = u.hobbies.map(hid => { const h = HOBBIES.find(x => x.id === hid); return h ? `<div class="tag-pill">${h.icon} ${h.label}</div>` : '' }).join('');
+            generateRecs();
+        }
+
+        async function generateRecs() {
+            const recDiv = document.getElementById('rec-content');
+            recDiv.innerHTML = `<div class="ai-loading"><div class="spinner"></div><div><div style="color:var(--white);font-weight:600;margin-bottom:3px;">AI sedang bekerja...</div><div style="font-size:12px;color:var(--muted);">Menganalisis biometrik & preferensi olahragamu</div></div></div>`;
+            const u = currentUser, bmi = (u.bb / ((u.tb / 100) ** 2)).toFixed(1), hobbiesStr = u.hobbies.map(hid => HOBBIES.find(x => x.id === hid)?.label).join(', ');
+            const prompt = `Rekomendasikan 4 produk olahraga terbaik untuk: usia ${u.usia} tahun, gender ${u.gender}, BMI ${bmi}, hobi: ${hobbiesStr}. Dari daftar: ${PRODUCTS.map(p => p.name + '(' + p.hobbies + ')').join(', ')}. Format JSON saja: [{"id":number,"alasan":"alasan singkat max 12 kata","match":80}]`;
+            try {
+                const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 800, messages: [{ role: 'user', content: prompt }] }) });
+                const data = await res.json();
+                let text = data.content.map(i => i.text || '').join('');
+                text = text.replace(/```json|```/g, '').trim();
+                const recs = JSON.parse(text);
+                recDiv.innerHTML = `<div class="row g-3">${recs.map(r => { const p = PRODUCTS.find(x => x.id === r.id); if (!p) return ''; return `<div class="col-md-6"><div class="rec-card" onclick="addToCart(${p.id})"><div class="rec-icon">${p.icon}</div><div class="rec-name">${p.name}</div><div class="rec-reason">${r.alasan}</div><div class="d-flex justify-content-between align-items-center"><div class="rec-price">${p.price}</div><div class="match-chip">⚡ ${r.match}% MATCH</div></div></div></div>`; }).join('')}</div>`;
+            } catch (e) {
+                const matched = PRODUCTS.filter(p => p.hobbies.some(h => currentUser.hobbies.includes(h))).slice(0, 4);
+                recDiv.innerHTML = `<div class="row g-3">${matched.map(p => `<div class="col-md-6"><div class="rec-card" onclick="addToCart(${p.id})"><div class="rec-icon">${p.icon}</div><div class="rec-name">${p.name}</div><div class="rec-reason">Berdasarkan hobi olahraga</div><div class="d-flex justify-content-between align-items-center"><div class="rec-price">${p.price}</div><div class="match-chip">⚡ MATCH</div></div></div></div>`).join('')}</div>`;
+            }
+        }
+
+        // --- HOME AI PANEL ---
+        async function renderHomeAI() {
+            const sec = document.getElementById('home-ai-section');
+            if (!currentUser) { sec.classList.remove('show'); return; }
+            sec.classList.add('show');
+            const u = currentUser, bmi = (u.bb / ((u.tb / 100) ** 2)).toFixed(1);
+            const ageStr = u.dob ? `${calcAge(u.dob)} thn` : u.usia ? `${u.usia} thn` : '';
+            // Profile sidebar
+            document.getElementById('home-ai-profile-body').innerHTML = `
+                <div style="padding:14px 4px 4px;">
+                    <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;margin-bottom:2px;">${u.name}</div>
+                    <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">${u.gender} · ${ageStr}</div>
+                    <div class="metric-row"><span style="font-size:12px;">Tinggi</span><span style="font-family:'Bebas Neue';font-size:16px;">${u.tb} cm</span></div>
+                    <div class="metric-row"><span style="font-size:12px;">Berat</span><span style="font-family:'Bebas Neue';font-size:16px;">${u.bb} kg</span></div>
+                    <div class="metric-row"><span style="font-size:12px;">BMI</span><span style="font-family:'Bebas Neue';font-size:16px;color:var(--volt);">${bmi}</span></div>
+                    <div class="mt-3 d-flex flex-wrap gap-1">${u.hobbies.map(hid => { const h = HOBBIES.find(x => x.id === hid); return h ? `<span class="tag-pill" style="font-size:10px;">${h.icon} ${h.label}</span>` : '' }).join('')}</div>
+                    <button class="btn-fire w-100 mt-3" style="padding:9px;font-size:13px;" onclick="showPage('profile')">Dashboard Lengkap →</button>
+                </div>`;
+            // Recs
+            const recBody = document.getElementById('home-ai-recs-body');
+            recBody.innerHTML = `<div class="ai-loading"><div class="spinner"></div><div><div style="color:var(--white);font-weight:600;margin-bottom:2px;">AI menganalisis profil...</div><div style="font-size:11px;color:var(--muted);">Sedang memilih gear terbaik untukmu</div></div></div>`;
+            const hobbiesStr = u.hobbies.map(hid => HOBBIES.find(x => x.id === hid)?.label).join(', ');
+            const prompt = `Rekomendasikan 4 produk olahraga terbaik untuk: usia ${u.usia} tahun, gender ${u.gender}, BMI ${bmi}, hobi: ${hobbiesStr}. Dari daftar: ${PRODUCTS.map(p => p.name + '(' + p.hobbies + ')').join(', ')}. Format JSON saja: [{"id":number,"alasan":"alasan singkat max 12 kata","match":80}]`;
+            try {
+                const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 800, messages: [{ role: 'user', content: prompt }] }) });
+                const data = await res.json();
+                let text = data.content.map(i => i.text || '').join('');
+                text = text.replace(/```json|```/g, '').trim();
+                const recs = JSON.parse(text);
+                recBody.innerHTML = `<div class="row g-2">${recs.map(r => { const p = PRODUCTS.find(x => x.id === r.id); if (!p) return ''; return `<div class="col-6 col-md-3"><div class="rec-card" onclick="addToCart(${p.id})"><div class="rec-icon" style="font-size:28px;margin-bottom:6px;">${p.icon}</div><div class="rec-name" style="font-size:15px;">${p.name}</div><div class="rec-reason" style="font-size:10px;">${r.alasan}</div><div class="d-flex justify-content-between align-items-center mt-1"><div class="rec-price" style="font-size:15px;">${p.price}</div><div class="match-chip" style="font-size:9px;">⚡${r.match}%</div></div></div></div>`; }).join('')}</div>`;
+            } catch (e) {
+                const matched = PRODUCTS.filter(p => p.hobbies.some(h => u.hobbies.includes(h))).slice(0, 4);
+                recBody.innerHTML = `<div class="row g-2">${matched.map(p => `<div class="col-6 col-md-3"><div class="rec-card" onclick="addToCart(${p.id})"><div class="rec-icon" style="font-size:28px;margin-bottom:6px;">${p.icon}</div><div class="rec-name" style="font-size:15px;">${p.name}</div><div class="rec-reason" style="font-size:10px;">Sesuai hobi olahraga</div><div class="d-flex justify-content-between align-items-center mt-1"><div class="rec-price" style="font-size:15px;">${p.price}</div></div></div></div>`).join('')}</div>`;
+            }
+        }
+
+        // --- PRODUCTS GRID ---
+        function renderProducts() {
+            const g = document.getElementById('products-grid');
+            if (g) g.innerHTML = PRODUCTS.map(p => `<div class="col-6 col-md-4 col-xl-3"><div class="pcard"><div class="pcard-img">${p.badge ? `<div class="pcard-badge">${p.badge}</div>` : ''} ${p.icon}</div><div class="pcard-body"><div class="pcard-cat">${p.cat}</div><div class="pcard-name">${p.name}</div><div class="d-flex justify-content-between align-items-center"><div class="pcard-price">${p.price}</div><button class="pcard-add" onclick="addToCart(${p.id})">+</button></div></div></div></div>`).join('');
+        }
+
+        // --- NAV / AUTH ---
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + page).classList.add('active');
+            if (page === 'profile' && currentUser) renderProfile();
+            window.scrollTo(0, 0);
+        }
+        function updateNav() {
+            if (currentUser) {
+                document.getElementById('nav-auth').style.display = 'none';
+                const nu = document.getElementById('nav-user'); nu.style.display = 'flex';
+                document.getElementById('nav-greeting').textContent = '👋 ' + currentUser.name.split(' ')[0].toUpperCase();
+                document.getElementById('nav-profile-link').style.display = 'block';
+            } else {
+                document.getElementById('nav-auth').style.display = 'block';
+                document.getElementById('nav-user').style.display = 'none';
+                document.getElementById('nav-profile-link').style.display = 'none';
+            }
+        }
+        function logout() { sessionStorage.removeItem('sv_user'); currentUser = null; updateNav(); document.getElementById('home-ai-section').classList.remove('show'); showPage('home'); toast('Keluar dari akun', '#888'); }
+        function scrollProducts() { showPage('home'); setTimeout(() => document.getElementById('products-sec')?.scrollIntoView({ behavior: 'smooth' }), 400); }
+
+        let _tt;
+        function toast(msg, color = '#FF4D00') { const t = document.getElementById('toast-sv'); t.textContent = msg; t.style.borderColor = color; clearTimeout(_tt); t.classList.add('show'); _tt = setTimeout(() => t.classList.remove('show'), 2800); }
+
+        // --- DOB live age display ---
+        function setupDOB() {
+            const dobInput = document.getElementById('reg-dob');
+            if (!dobInput) return;
+            const today = new Date(); dobInput.max = today.toISOString().split('T')[0];
+            dobInput.addEventListener('change', () => {
+                const age = calcAge(dobInput.value);
+                const disp = document.getElementById('reg-age-display');
+                if (age >= 5 && age <= 120) disp.innerHTML = `<span style="color:var(--fire);font-weight:600;">✓ Usia: ${age} tahun</span>`;
+                else disp.innerHTML = `<span style="color:#ff4444;">Tanggal lahir tidak valid</span>`;
+            });
+        }
+
+        // --- INIT ---
+        (function () {
+            renderHobbies(); renderProducts(); setupDOB();
+            const s = sessionStorage.getItem('sv_user');
+            if (s) { currentUser = JSON.parse(s); updateNav(); renderHomeAI(); }
+            updateCartBadge();
+        })();
+    </script>
+</body>
+
+</html>

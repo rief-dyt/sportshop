@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportVibe — AI Sports Gear</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #FFFFFF;
+            --bg2: #F5F7FA;
+            --fire: #FF4D00;
+            --fire2: #FF8C00;
+            --volt: #D4FF00;
+            --white: #1A1E2B;
+            --muted: #5B6E8C;
+            --border: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, .94) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .navbar-brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            background: linear-gradient(90deg, var(--fire), var(--fire2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .navbar-brand span {
+            color: var(--volt);
+        }
+
+        .nav-link {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #4A5A6E !important;
+        }
+
+        .nav-link:hover {
+            color: var(--fire) !important;
+        }
+
+        .btn-nav-cta {
+            background: var(--fire);
+            color: #fff;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .cart-btn-nav {
+            position: relative;
+            background: rgba(0, 0, 0, .04);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--fire);
+            color: #fff;
+            font-size: 10px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 70px;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn .3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(50px, 8vw, 100px);
+            font-weight: 900;
+            line-height: 0.9;
+            text-transform: uppercase;
+        }
+
+        .hero h1 .accent {
+            -webkit-text-stroke: 2px var(--fire);
+            color: transparent;
+            display: block;
+        }
+
+        .hero h1 .accent2 {
+            background: linear-gradient(90deg, var(--fire), var(--volt));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: block;
+        }
+
+        .btn-fire {
+            background: linear-gradient(90deg, var(--fire), var(--fire2));
+            border: none;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            color: #fff;
+            cursor: pointer;
+            transition: all .25s;
+        }
+
+        .btn-fire:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(255, 77, 0, .35);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1.5px solid var(--border);
+            padding: 11px 28px;
+            border-radius: 8px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            text-transform: uppercase;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        .stat-block {
+            background: var(--bg2);
+            border-left: 3px solid var(--fire);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            color: var(--fire);
+        }
+
+        .ticker-wrap {
+            background: var(--fire);
+            overflow: hidden;
+            height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-inner {
+            display: inline-flex;
+            animation: ticker 20s linear infinite;
+        }
+
+        .ticker-inner span {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            padding: 0 30px;
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .section-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .section-title em {
+            color: var(--fire);
+            font-style: normal;
+        }
+
+        .pcard {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all .3s;
+            height: 100%;
+        }
+
+        .pcard:hover {
+            border-color: var(--fire);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+        }
+
+        .pcard-img {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            background: linear-gradient(135deg, rgba(255, 77, 0, .03), transparent);
+            position: relative;
+        }
+
+        .pcard-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--fire);
+            color: #fff;
+            font-size: 9px;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        .pcard-body {
+            padding: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .pcard-cat {
+            font-size: 9px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .pcard-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 4px 0 8px;
+        }
+
+        .pcard-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            color: var(--fire);
+        }
+
+        .pcard-add {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid var(--fire);
+            background: transparent;
+            color: var(--fire);
+            cursor: pointer;
+        }
+
+        .pcard-add:hover {
+            background: var(--fire);
+            color: #fff;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .5);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: .3s;
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 380px;
+            background: var(--bg);
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: .3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-drawer.open {
+            transform: translateX(0);
+        }
+
+        .cart-head {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-items-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .cart-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .auth-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .auth-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .field {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .field-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .hobby-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 8px 0 16px;
+        }
+
+        .hchip {
+            padding: 8px 16px;
+            background: #F2F5F9;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .hchip:hover {
+            background: rgba(255, 77, 0, .1);
+            border-color: var(--fire);
+        }
+
+        .hchip.active {
+            background: var(--fire);
+            border-color: var(--fire);
+            color: #fff;
+        }
+
+        /* Checkout Steps */
+        .step-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .step-item.active {
+            color: var(--white);
+        }
+
+        .step-item.done {
+            color: var(--volt);
+        }
+
+        .step-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid currentColor;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+        }
+
+        .step-item.active .step-dot {
+            background: var(--fire);
+            border-color: var(--fire);
+            color: #fff;
+        }
+
+        .step-item.done .step-dot {
+            background: var(--volt);
+            border-color: var(--volt);
+            color: #000;
+        }
+
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background: var(--border);
+            margin: 0 15px;
+        }
+
+        .step-line.done {
+            background: var(--volt);
+        }
+
+        .co-panel {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .co-panel.visible {
+            display: block;
+            animation: fadeIn .3s;
+        }
+
+        .co-panel-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .co-panel-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--fire);
+            border-radius: 2px;
+        }
+
+        .pay-opt {
+            background: #FAFCFE;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all .2s;
+            text-align: center;
+        }
+
+        .pay-opt:hover {
+            border-color: var(--fire);
+            transform: translateY(-2px);
+        }
+
+        .pay-opt.selected {
+            border-color: var(--fire);
+            background: rgba(255, 77, 0, .05);
+        }
+
+        .pay-icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .pay-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .pay-desc {
+            font-size: 9px;
+            color: var(--muted);
+        }
+
+        .pay-detail-box {
+            background: #FAFCFE;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .pay-detail-box.show {
+            display: block;
+        }
+
+        .order-sidebar {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            position: sticky;
+            top: 80px;
+        }
+
+        .order-sidebar-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .confirm-block {
+            background: #FAFCFE;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .confirm-total {
+            background: rgba(255, 77, 0, .05);
+            border: 1px solid rgba(255, 77, 0, .15);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .summary-row.total {
+            font-size: 18px;
+            font-weight: 700;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+            margin-top: 8px;
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(40px);
+            background: var(--bg);
+            border: 1px solid var(--fire);
+            border-radius: 8px;
+            padding: 10px 24px;
+            opacity: 0;
+            transition: .3s;
+            z-index: 2000;
+        }
+
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Profile Avatar */
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--fire), var(--fire2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .profile-avatar span {
+            font-size: 40px;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .cart-drawer {
+                width: 100%;
+            }
+
+            .step-item span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showPage('home')">SPORT<span>VIBE</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMain">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('home')">Beranda</a></li>
+                    <li class="nav-item" id="nav-profile-link" style="display:none"><a class="nav-link" href="#"
+                            onclick="showPage('profile')">Profil</a></li>
+                    <li class="nav-item" id="nav-admin-link" style="display:none"><a class="nav-link" href="#"
+                            onclick="showPage('database')" style="color:#ff4444;font-weight:600;">⚙️ Database</a></li>
+                </ul>
+                <div class="d-flex gap-2">
+                    <button class="cart-btn-nav" onclick="openCart()"><i class="fas fa-shopping-cart"></i><span
+                            class="cart-badge" id="cart-count">0</span></button>
+                    <div id="nav-auth"><button class="btn-nav-cta" onclick="showPage('login')">Masuk</button></div>
+                    <div id="nav-user" style="display:none;" class="d-flex gap-2">
+                        <span id="nav-greeting" style="font-size:12px;"></span>
+                        <button class="btn-logout" onclick="logout()">Keluar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-head">
+            <h5 class="m-0">🛒 Keranjang</h5><button class="btn-close" onclick="closeCart()"></button>
+        </div>
+        <div class="cart-items-list" id="cart-items-list"></div>
+        <div class="cart-footer" id="cart-footer" style="display:none;">
+            <div id="cart-summary" class="mb-3"></div>
+            <button class="btn-fire w-100" onclick="goToCheckout()">Checkout →</button>
+        </div>
+    </div>
+
+    <!-- HOME PAGE -->
+    <div class="page active" id="page-home">
+        <div class="hero">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1>GEAR<br><span class="accent">YOUR</span><span class="accent2">GAME</span></h1>
+                        <p class="hero-sub my-4">AI menganalisis data fisik & hobi olahragamu untuk rekomendasi
+                            perlengkapan paling presisi.</p>
+                        <div class="d-flex gap-3">
+                            <button class="btn-fire" onclick="showPage('register')">Mulai Gratis</button>
+                            <button class="btn-ghost" onclick="scrollToProducts()">Lihat Produk</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 d-none d-lg-block">
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="stat-block">
+                                    <div class="stat-num">12K+</div>
+                                    <div>Atlet Terdaftar</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-block">
+                                    <div class="stat-num">98%</div>
+                                    <div>Akurasi AI</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ticker-wrap">
+            <div class="ticker-inner"><span>🏃 SEPATU LARI</span><span>🏋️ GYM</span><span>⚽ SEPAK BOLA</span><span>🏸
+                    BADMINTON</span><span>🧘 YOGA</span><span>🥊 BOXING</span></div>
+        </div>
+
+        <div class="container py-5" id="products-section">
+            <div class="section-title mb-4">GEAR <em>TERLARIS</em></div>
+            <div class="row g-3" id="products-grid"></div>
+        </div>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <div class="page" id="page-login">
+        <div class="auth-wrapper">
+            <div class="auth-card">
+                <h2 class="auth-title">Welcome Back</h2>
+                <input type="email" class="field" id="login-email" placeholder="Email">
+                <input type="password" class="field" id="login-password" placeholder="Password">
+                <button class="btn-fire w-100" onclick="doLogin()">Masuk →</button>
+                <p class="text-center mt-3">Belum punya akun? <a href="#" onclick="showPage('register')">Daftar</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTER PAGE -->
+    <div class="page" id="page-register">
+        <div class="auth-wrapper">
+            <div class="auth-card">
+                <h2 class="auth-title">Daftar Akun</h2>
+                <div class="row">
+                    <div class="col-md-6"><input type="text" class="field" id="reg-name" placeholder="Nama Lengkap">
+                    </div>
+                    <div class="col-md-6"><input type="email" class="field" id="reg-email" placeholder="Email"></div>
+                    <div class="col-md-6"><input type="password" class="field" id="reg-password"
+                            placeholder="Password (min 6)"></div>
+                    <div class="col-md-6"><select class="field" id="reg-gender">
+                            <option>Pria</option>
+                            <option>Wanita</option>
+                        </select></div>
+                    <div class="col-md-6"><input type="number" class="field" id="reg-height" placeholder="Tinggi (cm)">
+                    </div>
+                    <div class="col-md-6"><input type="number" class="field" id="reg-weight" placeholder="Berat (kg)">
+                    </div>
+                    <div class="col-md-12"><input type="date" class="field" id="reg-dob"></div>
+                    <div class="col-12">
+                        <label class="field-label">🏅 Hobi Olahraga (klik untuk memilih)</label>
+                        <div class="hobby-container" id="hobby-grid"></div>
+                    </div>
+                </div>
+                <button class="btn-fire w-100 mt-3" onclick="doRegister()">Daftar →</button>
+                <p class="text-center mt-3">Sudah punya akun? <a href="#" onclick="showPage('login')">Masuk</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- OTP VERIFICATION PAGE -->
+    <div class="page" id="page-otp">
+        <div class="auth-wrapper">
+            <div class="auth-card">
+                <h2 class="auth-title">Verifikasi OTP</h2>
+                <p class="text-center" style="color:#666; margin-bottom: 20px;">
+                    Kami telah mengirim kode OTP 6 digit ke email
+                    <strong id="otp-email-display">-</strong>.<br>
+                    Silakan masukkan kode tersebut di bawah ini.
+                </p>
+                <input type="text" class="field" id="otp-code" placeholder="Masukkan kode OTP" maxlength="6"
+                    inputmode="numeric" pattern="[0-9]*" style="text-align:center; letter-spacing:6px; font-size:22px;">
+                <button class="btn-fire w-100 mt-3" onclick="doVerifyOtp()">Verifikasi →</button>
+                <p class="text-center mt-3">
+                    Tidak menerima kode?
+                    <a href="#" id="otp-resend-link" onclick="doResendOtp()">Kirim ulang OTP</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div class="page" id="page-profile">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h5><i class="fas fa-user-circle"></i> Profil Saya</h5>
+                        <div id="profile-info"></div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card p-3">
+                        <h5><i class="fas fa-robot"></i> 🤖 Rekomendasi AI</h5>
+                        <div id="profile-recommendations"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL UPDATE PROFILE -->
+    <div class="modal fade" id="updateProfileModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(90deg, #FF4D00, #FF8C00); color: white;">
+                    <h5 class="modal-title"><i class="fas fa-user-edit"></i> Update Profil</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateProfileForm">
+                        <div class="mb-3">
+                            <label class="field-label">Nama Lengkap</label>
+                            <input type="text" class="field" id="update-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="field-label">Gender</label>
+                            <select class="field" id="update-gender">
+                                <option>Pria</option>
+                                <option>Wanita</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="field-label">Tinggi (cm)</label>
+                                <input type="number" class="field" id="update-height" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="field-label">Berat (kg)</label>
+                                <input type="number" class="field" id="update-weight" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="field-label">Tanggal Lahir</label>
+                            <input type="date" class="field" id="update-dob" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="field-label">Password Baru (kosongkan jika tidak diubah)</label>
+                            <input type="password" class="field" id="update-password" placeholder="Minimal 6 karakter">
+                        </div>
+                        <div class="mb-3">
+                            <label class="field-label">🏅 Hobi Olahraga (klik untuk memilih)</label>
+                            <div class="hobby-container" id="update-hobby-grid"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-ghost" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn-fire" onclick="updateProfile()">Simpan Perubahan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DELETE ACCOUNT -->
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: #dc3545; color: white;">
+                    <h5 class="modal-title"><i class="fas fa-exclamation-triangle"></i> Hapus Akun</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <i class="fas fa-trash-alt" style="font-size: 48px; color: #dc3545; margin-bottom: 16px;"></i>
+                        <h5>Apakah Anda yakin?</h5>
+                        <p class="text-muted">Tindakan ini akan menghapus akun Anda secara permanen. Semua data pesanan
+                            Anda juga akan hilang.</p>
+                        <div class="alert alert-danger mt-3">
+                            <strong>⚠️ Peringatan!</strong> Data tidak dapat dipulihkan setelah dihapus.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-ghost" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn-fire" style="background: #dc3545;" onclick="deleteAccount()">Ya,
+                        Hapus Akun Saya</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT PAGE - 3 STEP -->
+    <div class="page" id="page-checkout">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h2 class="mb-2" style="font-family:'Barlow Condensed';font-size:36px;">CHECKOUT</h2>
+                    <p class="text-muted mb-4">Selesaikan pesananmu dengan aman</p>
+
+                    <div class="step-bar">
+                        <div class="step-item active" id="step1">
+                            <div class="step-dot">1</div><span>PENGIRIMAN</span>
+                        </div>
+                        <div class="step-line" id="line1"></div>
+                        <div class="step-item" id="step2">
+                            <div class="step-dot">2</div><span>PEMBAYARAN</span>
+                        </div>
+                        <div class="step-line" id="line2"></div>
+                        <div class="step-item" id="step3">
+                            <div class="step-dot">3</div><span>KONFIRMASI</span>
+                        </div>
+                    </div>
+
+                    <!-- Panel 1: Pengiriman -->
+                    <div class="co-panel visible" id="panel1">
+                        <div class="co-panel-title">Alamat Pengiriman</div>
+                        <div class="row">
+                            <div class="col-md-6"><label class="field-label">Nama Penerima</label><input type="text"
+                                    class="field" id="co-name" placeholder="Nama lengkap penerima"></div>
+                            <div class="col-md-6"><label class="field-label">Nomor HP / WhatsApp</label><input
+                                    type="tel" class="field" id="co-phone" placeholder="08xxxxxxxxxx"></div>
+                            <div class="col-md-6"><label class="field-label">Provinsi</label><select class="field"
+                                    id="co-province">
+                                    <option value="">Pilih Provinsi</option>
+                                    <option>DKI Jakarta</option>
+                                    <option>Jawa Barat</option>
+                                    <option>Jawa Tengah</option>
+                                    <option>Jawa Timur</option>
+                                    <option>Banten</option>
+                                    <option>Sumatera Utara</option>
+                                    <option>Bali</option>
+                                </select></div>
+                            <div class="col-md-6"><label class="field-label">Kota / Kabupaten</label><input type="text"
+                                    class="field" id="co-city" placeholder="Nama kota"></div>
+                            <div class="col-12"><label class="field-label">Alamat Lengkap</label><textarea class="field"
+                                    id="co-address" rows="2"
+                                    placeholder="Jl. ..., RT/RW, Kelurahan, Kecamatan"></textarea></div>
+                            <div class="col-md-6"><label class="field-label">Kode Pos</label><input type="text"
+                                    class="field" id="co-postcode" placeholder="Kode pos"></div>
+                            <div class="col-md-6"><label class="field-label">Layanan Pengiriman</label><select
+                                    class="field" id="co-courier" onchange="updateShipping()">
+                                    <option value="15000">JNE REG — Rp 15.000 (3-5 hari)</option>
+                                    <option value="28000">JNE YES — Rp 28.000 (1 hari)</option>
+                                    <option value="0">Gratis Ongkir (min. Rp 500K)</option>
+                                </select></div>
+                        </div>
+                        <button class="btn-fire mt-3" onclick="nextStep(2)">Lanjut ke Pembayaran →</button>
+                    </div>
+
+                    <!-- Panel 2: Pembayaran -->
+                    <div class="co-panel" id="panel2">
+                        <div class="co-panel-title">Metode Pembayaran</div>
+                        <div class="row g-2 mb-3" id="payment-grid"></div>
+                        <div class="pay-detail-box" id="pay-detail-box"></div>
+                        <div class="d-flex gap-3 mt-3"><button class="btn-ghost" onclick="nextStep(1)">←
+                                Kembali</button><button class="btn-fire" onclick="nextStep(3)">Periksa Pesanan
+                                →</button></div>
+                    </div>
+
+                    <!-- Panel 3: Konfirmasi -->
+                    <div class="co-panel" id="panel3">
+                        <div class="co-panel-title">Konfirmasi Pesanan</div>
+                        <div id="confirm-area"></div>
+                        <div class="d-flex gap-3 mt-3"><button class="btn-ghost" onclick="nextStep(2)">←
+                                Kembali</button><button class="btn-fire" onclick="placeOrder()">✅ Bayar
+                                Sekarang</button></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="order-sidebar">
+                        <div class="order-sidebar-title">Ringkasan Pesanan</div>
+                        <div id="sidebar-items"></div>
+                        <hr>
+                        <div id="sidebar-summary"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS PAGE -->
+    <div class="page" id="page-success">
+        <div class="auth-wrapper">
+            <div class="auth-card" style="text-align:center;">
+                <div style="font-size:64px;">🎉</div>
+                <h2 class="auth-title">Pesanan Berhasil!</h2>
+                <p>Terima kasih telah berbelanja di SportVibe</p>
+                <div class="p-3 bg-light rounded my-3">
+                    <div class="small text-muted">NOMOR PESANAN</div>
+                    <div class="fw-bold fs-4 text-danger" id="success-order">#SV-000000</div>
+                </div>
+                <button class="btn-fire w-100" onclick="backToHome()">Kembali Belanja</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATABASE ADMIN PAGE -->
+    <div class="page" id="page-database">
+        <div class="container py-5 mt-5">
+            <div class="d-flex align-items-center mb-4 gap-3">
+                <h2 style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;margin:0;">⚙️ DATABASE <span style="color:var(--fire)">ADMIN</span></h2>
+                <span class="badge bg-danger ms-2" style="font-size:11px;">ADMIN ONLY</span>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="row g-3 mb-4" id="admin-stats">
+                <div class="col-6 col-md-3"><div class="p-3 rounded-3 text-center" style="background:#1a1a2e;border:1px solid #333;">
+                    <div style="font-size:28px;font-weight:700;color:var(--fire)" id="stat-users">—</div>
+                    <div class="text-muted small">Total Users</div>
+                </div></div>
+                <div class="col-6 col-md-3"><div class="p-3 rounded-3 text-center" style="background:#1a1a2e;border:1px solid #333;">
+                    <div style="font-size:28px;font-weight:700;color:#4ecdc4" id="stat-products">—</div>
+                    <div class="text-muted small">Total Produk</div>
+                </div></div>
+                <div class="col-6 col-md-3"><div class="p-3 rounded-3 text-center" style="background:#1a1a2e;border:1px solid #333;">
+                    <div style="font-size:28px;font-weight:700;color:#f9ca24" id="stat-orders">—</div>
+                    <div class="text-muted small">Total Pesanan</div>
+                </div></div>
+                <div class="col-6 col-md-3"><div class="p-3 rounded-3 text-center" style="background:#1a1a2e;border:1px solid #333;">
+                    <div style="font-size:22px;font-weight:700;color:#6c5ce7" id="stat-revenue">—</div>
+                    <div class="text-muted small">Total Pendapatan</div>
+                </div></div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="d-flex gap-2 mb-4 flex-wrap">
+                <button class="btn-fire admin-tab active" onclick="switchAdminTab('users')" id="tab-users">👥 Users</button>
+                <button class="btn-fire admin-tab" onclick="switchAdminTab('products')" id="tab-products" style="background:#4ecdc4;border-color:#4ecdc4;">📦 Produk</button>
+                <button class="btn-fire admin-tab" onclick="switchAdminTab('orders')" id="tab-orders" style="background:#f9ca24;border-color:#f9ca24;color:#000;">🛒 Pesanan</button>
+            </div>
+
+            <!-- Users Table -->
+            <div id="admin-tab-users">
+                <div style="overflow-x:auto;">
+                    <table class="table table-dark table-hover" id="table-users" style="font-size:13px;">
+                        <thead><tr>
+                            <th>ID</th><th>Nama</th><th>Email</th><th>Gender</th><th>Usia</th><th>Role</th><th>Daftar</th><th>Aksi</th>
+                        </tr></thead>
+                        <tbody id="tbody-users"><tr><td colspan="8" class="text-center text-muted">Memuat data...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Products Table -->
+            <div id="admin-tab-products" style="display:none;">
+                <div style="overflow-x:auto;">
+                    <table class="table table-dark table-hover" id="table-products" style="font-size:13px;">
+                        <thead><tr>
+                            <th>ID</th><th>Nama</th><th>Kategori</th><th>Harga</th><th>Badge</th><th>Stok</th><th>Aksi</th>
+                        </tr></thead>
+                        <tbody id="tbody-products"><tr><td colspan="7" class="text-center text-muted">Memuat data...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div id="admin-tab-orders" style="display:none;">
+                <div style="overflow-x:auto;">
+                    <table class="table table-dark table-hover" id="table-orders" style="font-size:13px;">
+                        <thead><tr>
+                            <th>No. Pesanan</th><th>Pelanggan</th><th>Kota</th><th>Total</th><th>Status</th><th>Tanggal</th><th>Aksi</th>
+                        </tr></thead>
+                        <tbody id="tbody-orders"><tr><td colspan="7" class="text-center text-muted">Memuat data...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-notification" class="toast-notification"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ==================== GLOBAL VARIABLES ====================
+        let currentUser = null;
+        let cart = [];
+        let selectedHobbies = [];
+        let products = [];
+        let selectedPayment = null;
+        let currentStep = 1;
+        let shippingCost = 15000;
+        let updateSelectedHobbies = [];
+
+        // ==================== HELPER FUNCTIONS ====================
+        function formatRupiah(amount) { return 'Rp ' + amount.toLocaleString('id-ID'); }
+        function showToast(msg) { const t = document.getElementById('toast-notification'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+
+        function calcAge(birthDate) {
+            const today = new Date(), birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const m = today.getMonth() - birth.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+            return age;
+        }
+
+        // ==================== HOBBY FUNCTIONS ====================
+        function renderHobbyGrid() {
+            const hobbies = [
+                { id: 'lari', label: '🏃 Lari' }, { id: 'gym', label: '🏋️ Gym' },
+                { id: 'sepak-bola', label: '⚽ Sepak Bola' }, { id: 'basket', label: '🏀 Basket' },
+                { id: 'renang', label: '🏊 Renang' }, { id: 'bersepeda', label: '🚴 Bersepeda' },
+                { id: 'yoga', label: '🧘 Yoga' }, { id: 'badminton', label: '🏸 Badminton' }
+            ];
+            const grid = document.getElementById('hobby-grid');
+            if (grid) grid.innerHTML = hobbies.map(h => `<div class="hchip" data-hobby="${h.id}" onclick="toggleHobby('${h.id}')">${h.label}</div>`).join('');
+        }
+
+        function toggleHobby(hobbyId) {
+            const chip = document.querySelector(`.hchip[data-hobby="${hobbyId}"]`);
+            if (!chip) return;
+            if (selectedHobbies.includes(hobbyId)) {
+                selectedHobbies = selectedHobbies.filter(h => h !== hobbyId);
+                chip.classList.remove('active');
+            } else {
+                selectedHobbies.push(hobbyId);
+                chip.classList.add('active');
+            }
+        }
+
+        function renderUpdateHobbyGrid() {
+            const hobbies = [
+                { id: 'lari', label: '🏃 Lari' }, { id: 'gym', label: '🏋️ Gym' },
+                { id: 'sepak-bola', label: '⚽ Sepak Bola' }, { id: 'basket', label: '🏀 Basket' },
+                { id: 'renang', label: '🏊 Renang' }, { id: 'bersepeda', label: '🚴 Bersepeda' },
+                { id: 'yoga', label: '🧘 Yoga' }, { id: 'badminton', label: '🏸 Badminton' }
+            ];
+            const grid = document.getElementById('update-hobby-grid');
+            if (grid) {
+                grid.innerHTML = hobbies.map(h => `<div class="hchip update-hchip" data-update-hobby="${h.id}" onclick="toggleUpdateHobby('${h.id}')">${h.label}</div>`).join('');
+            }
+        }
+
+        function toggleUpdateHobby(hobbyId) {
+            const chip = document.querySelector(`.update-hchip[data-update-hobby="${hobbyId}"]`);
+            if (!chip) return;
+            if (updateSelectedHobbies.includes(hobbyId)) {
+                updateSelectedHobbies = updateSelectedHobbies.filter(h => h !== hobbyId);
+                chip.classList.remove('active');
+            } else {
+                updateSelectedHobbies.push(hobbyId);
+                chip.classList.add('active');
+            }
+        }
+
+        // ==================== PRODUCTS ====================
+        async function loadProducts() {
+            try {
+                const res = await fetch('/TokoOlahraga/php/api/products.php');
+                const data = await res.json();
+                if (data.success && data.products) products = data.products;
+                else products = [
+                    { id: 1, name: 'X-Speed Carbon', category: 'Lari', icon: '👟', price: 899000, price_formatted: 'Rp 899K', badge: 'BEST' },
+                    { id: 2, name: 'NeoDumbbell Set', category: 'Gym', icon: '🏋️', price: 590000, price_formatted: 'Rp 590K' },
+                    { id: 3, name: 'Strike Pro Ball', category: 'Sepak Bola', icon: '⚽', price: 349000, price_formatted: 'Rp 349K', badge: 'NEW' },
+                    { id: 4, name: 'AeroRacket', category: 'Badminton', icon: '🏸', price: 720000, price_formatted: 'Rp 720K', badge: 'LIMITED' }
+                ];
+                renderProducts();
+            } catch (e) { console.error(e); }
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            if (!grid) return;
+            grid.innerHTML = products.map(p => `
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="pcard">
+                        <div class="pcard-img">${p.badge ? `<div class="pcard-badge">${p.badge}</div>` : ''}<span style="font-size:40px;">${p.icon || '🏷️'}</span></div>
+                        <div class="pcard-body">
+                            <div class="pcard-cat">${p.category}</div>
+                            <div class="pcard-name">${p.name}</div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="pcard-price">${p.price_formatted}</div>
+                                <button class="pcard-add" onclick="addToCart(${p.id})">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==================== CART FUNCTIONS ====================
+        function addToCart(id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            const ex = cart.find(c => c.id === id);
+            if (ex) ex.qty++;
+            else cart.push({ id: p.id, name: p.name, category: p.category, icon: p.icon, raw: p.price, price: p.price_formatted, qty: 1 });
+            saveCart();
+            updateCartBadge();
+            renderCart();
+            showToast(p.name + ' ditambahkan');
+        }
+
+        function removeFromCart(id) { cart = cart.filter(c => c.id !== id); saveCart(); updateCartBadge(); renderCart(); }
+        function updateQuantity(id, d) { const item = cart.find(c => c.id === id); if (item) { item.qty += d; if (item.qty <= 0) removeFromCart(id); else { saveCart(); updateCartBadge(); renderCart(); } } }
+        function getSubtotal() { return cart.reduce((s, c) => s + (c.raw * c.qty), 0); }
+        function getTotal() { return getSubtotal() + shippingCost; }
+        function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+        function loadCart() { const saved = localStorage.getItem('cart'); if (saved) { cart = JSON.parse(saved); updateCartBadge(); } }
+        function updateCartBadge() { const n = cart.reduce((s, c) => s + c.qty, 0); document.getElementById('cart-count').textContent = n; }
+
+        function renderCart() {
+            const list = document.getElementById('cart-items-list'), footer = document.getElementById('cart-footer'), summary = document.getElementById('cart-summary');
+            if (!list) return;
+            if (cart.length === 0) { list.innerHTML = '<div class="text-center py-5">Keranjang kosong</div>'; footer.style.display = 'none'; return; }
+            footer.style.display = 'block';
+            list.innerHTML = cart.map(c => `
+                <div class="d-flex gap-2 mb-3 pb-2 border-bottom">
+                    <div style="font-size:32px;">${c.icon}</div>
+                    <div class="flex-grow-1"><strong>${c.name}</strong><div class="small">${c.category}</div><div>${formatRupiah(c.raw)}</div>
+                    <div class="d-flex gap-2 mt-1"><button class="btn btn-sm btn-outline-secondary" onclick="updateQuantity(${c.id},-1)">-</button><span>${c.qty}</span><button class="btn btn-sm btn-outline-secondary" onclick="updateQuantity(${c.id},1)">+</button></div></div>
+                    <button class="btn btn-sm btn-link text-danger" onclick="removeFromCart(${c.id})">🗑</button>
+                </div>
+            `).join('');
+            summary.innerHTML = `<div class="d-flex justify-content-between"><strong>Total</strong><strong class="text-danger">${formatRupiah(getSubtotal())}</strong></div>`;
+        }
+
+        function openCart() { renderCart(); document.getElementById('cart-overlay').classList.add('open'); document.getElementById('cart-drawer').classList.add('open'); }
+        function closeCart() { document.getElementById('cart-overlay').classList.remove('open'); document.getElementById('cart-drawer').classList.remove('open'); }
+
+        function goToCheckout() {
+            if (cart.length === 0) { showToast('Keranjang kosong'); return; }
+            closeCart();
+            currentStep = 1;
+            setStep(1);
+            renderSidebar();
+            renderPaymentGrid();
+            showPage('checkout');
+        }
+
+        function updateShipping() {
+            const select = document.getElementById('co-courier');
+            if (select) shippingCost = parseInt(select.value) || 0;
+            renderSidebar();
+            if (currentStep === 3) buildConfirm();
+        }
+
+        function renderSidebar() {
+            const itemsDiv = document.getElementById('sidebar-items');
+            const summaryDiv = document.getElementById('sidebar-summary');
+            if (!itemsDiv) return;
+            const sub = getSubtotal();
+            const total = sub + shippingCost;
+            itemsDiv.innerHTML = cart.map(c => `<div class="d-flex justify-content-between mb-2"><div><span style="font-size:20px;">${c.icon}</span> ${c.name} <span class="text-muted">x${c.qty}</span></div><div>${formatRupiah(c.raw * c.qty)}</div></div>`).join('');
+            summaryDiv.innerHTML = `<div class="summary-row"><span>Subtotal</span><span>${formatRupiah(sub)}</span></div><div class="summary-row"><span>Ongkos kirim</span><span>${shippingCost === 0 ? 'GRATIS' : formatRupiah(shippingCost)}</span></div><div class="summary-row total"><span>Total</span><span class="text-danger">${formatRupiah(total)}</span></div>`;
+        }
+
+        // ==================== CHECKOUT STEP FUNCTIONS ====================
+        function setStep(step) {
+            currentStep = step;
+            document.getElementById('panel1').classList.toggle('visible', step === 1);
+            document.getElementById('panel2').classList.toggle('visible', step === 2);
+            document.getElementById('panel3').classList.toggle('visible', step === 3);
+
+            const step1 = document.getElementById('step1'), step2 = document.getElementById('step2'), step3 = document.getElementById('step3');
+            const line1 = document.getElementById('line1'), line2 = document.getElementById('line2');
+
+            step1.classList.remove('active', 'done'); step2.classList.remove('active', 'done'); step3.classList.remove('active', 'done');
+            line1.classList.remove('done'); line2.classList.remove('done');
+
+            if (step === 1) step1.classList.add('active');
+            else if (step === 2) { step1.classList.add('done'); step2.classList.add('active'); line1.classList.add('done'); }
+            else if (step === 3) { step1.classList.add('done'); step2.classList.add('done'); step3.classList.add('active'); line1.classList.add('done'); line2.classList.add('done'); }
+        }
+
+        function nextStep(step) {
+            if (step === 2) {
+                const name = document.getElementById('co-name')?.value.trim();
+                const phone = document.getElementById('co-phone')?.value.trim();
+                const city = document.getElementById('co-city')?.value.trim();
+                const address = document.getElementById('co-address')?.value.trim();
+                if (!name || !phone || !city || !address) { showToast('Lengkapi semua data pengiriman!'); return; }
+            }
+            if (step === 3) {
+                if (!selectedPayment) { showToast('Pilih metode pembayaran!'); return; }
+                buildConfirm();
+            }
+            setStep(step);
+            renderSidebar();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderPaymentGrid() {
+            const payments = [
+                { id: 'bca', name: 'BCA Transfer', icon: '🏦', desc: 'Bank Central Asia' },
+                { id: 'bri', name: 'BRI Transfer', icon: '🏛️', desc: 'Bank Rakyat Indonesia' },
+                { id: 'gopay', name: 'GoPay', icon: '💚', desc: 'Dompet Gojek' },
+                { id: 'ovo', name: 'OVO', icon: '💜', desc: 'Dompet OVO' },
+                { id: 'dana', name: 'DANA', icon: '💙', desc: 'Dompet DANA' },
+                { id: 'qris', name: 'QRIS', icon: '📱', desc: 'Scan QR universal' },
+                { id: 'cod', name: 'Bayar di Tempat', icon: '💵', desc: 'Cash On Delivery' },
+                { id: 'cc', name: 'Kartu Kredit', icon: '💳', desc: 'Visa / Mastercard' }
+            ];
+            const grid = document.getElementById('payment-grid');
+            if (grid) {
+                grid.innerHTML = payments.map(p => `<div class="col-md-3 col-6"><div class="pay-opt" data-payment="${p.id}" onclick="selectPayment('${p.id}')"><span class="pay-icon">${p.icon}</span><div class="pay-name">${p.name}</div><div class="pay-desc">${p.desc}</div></div></div>`).join('');
+            }
+        }
+
+        function selectPayment(paymentId) {
+            selectedPayment = paymentId;
+            document.querySelectorAll('.pay-opt').forEach(opt => opt.classList.remove('selected'));
+            const selected = document.querySelector(`.pay-opt[data-payment="${paymentId}"]`);
+            if (selected) selected.classList.add('selected');
+
+            const payments = {
+                bca: 'Rekening BCA: 1234567890 a.n PT SportVibe Indonesia',
+                bri: 'Rekening BRI: 0987654321 a.n PT SportVibe Indonesia',
+                gopay: 'No. GoPay: 0812-3456-7890',
+                ovo: 'No. OVO: 0898-7654-3210',
+                dana: 'No. DANA: 0856-1234-5678',
+                qris: 'Scan QR menggunakan aplikasi bank atau e-wallet manapun.',
+                cod: 'Bayar tunai saat paket tiba. Siapkan uang pas.',
+                cc: 'Visa/Mastercard. Proses aman dengan enkripsi.'
+            };
+            const box = document.getElementById('pay-detail-box');
+            if (box) { box.innerHTML = `<strong>${paymentId.toUpperCase()}</strong><br>${payments[paymentId] || ''}`; box.classList.add('show'); }
+        }
+
+        function buildConfirm() {
+            const name = document.getElementById('co-name')?.value || '';
+            const phone = document.getElementById('co-phone')?.value || '';
+            const province = document.getElementById('co-province')?.value || '';
+            const city = document.getElementById('co-city')?.value || '';
+            const address = document.getElementById('co-address')?.value || '';
+            const courierSelect = document.getElementById('co-courier');
+            const courierText = courierSelect?.options[courierSelect.selectedIndex]?.text || 'JNE REG';
+            const sub = getSubtotal();
+            const total = sub + shippingCost;
+            const payments = { bca: 'BCA Transfer', bri: 'BRI Transfer', gopay: 'GoPay', ovo: 'OVO', dana: 'DANA', qris: 'QRIS', cod: 'COD', cc: 'Kartu Kredit' };
+            const payName = payments[selectedPayment] || selectedPayment;
+            document.getElementById('confirm-area').innerHTML = `
+                <div class="confirm-block"><div class="field-label">📦 Detail Pengiriman</div><div><strong>${name}</strong></div><div class="text-muted small">${phone}</div><div class="text-muted small mt-1">${address}, ${city}, ${province}</div><div class="text-danger small mt-2">${courierText}</div></div>
+                <div class="confirm-block"><div class="field-label">💳 Metode Pembayaran</div><div><span style="font-size:24px;">${selectedPayment === 'bca' ? '🏦' : selectedPayment === 'qris' ? '📱' : selectedPayment === 'cod' ? '💵' : '💳'}</span> <strong>${payName}</strong></div></div>
+                <div class="confirm-total"><div class="summary-row"><span>Subtotal produk</span><span>${formatRupiah(sub)}</span></div><div class="summary-row"><span>Ongkos kirim</span><span>${shippingCost === 0 ? 'GRATIS' : formatRupiah(shippingCost)}</span></div><div class="summary-row total"><span>Total Bayar</span><span class="text-danger">${formatRupiah(total)}</span></div></div>
+            `;
+        }
+
+        async function placeOrder() {
+            if (!currentUser) { showToast('Login dulu!'); showPage('login'); return; }
+            const name = document.getElementById('co-name')?.value || currentUser.name;
+            const phone = document.getElementById('co-phone')?.value || '-';
+            const city = document.getElementById('co-city')?.value || 'Jakarta';
+            const address = document.getElementById('co-address')?.value || '-';
+            const postalVal = document.getElementById('co-postal')?.value || '';
+            const courierSel = document.getElementById('co-courier');
+            const courierVal = courierSel?.options[courierSel.selectedIndex]?.text || 'JNE REG';
+            const orderData = {
+                action: 'create_order',
+                user_id: currentUser.id,
+                email: currentUser.email,  // untuk notifikasi email via PHPMailer
+                customer_name: name,
+                customer_phone: phone,
+                city: city,
+                address: address,
+                postal_code: postalVal,
+                courier_service: courierVal,
+                shipping_cost: shippingCost,
+                payment_method: selectedPayment,
+                subtotal: getSubtotal(),
+                total: getTotal(),
+                items: cart.map(i => ({ id: i.id, name: i.name, icon: i.icon, quantity: i.qty, price: i.raw }))
+            };
+            try {
+                const res = await fetch('/TokoOlahraga/php/api/orders.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(orderData) });
+                const result = await res.json();
+                if (result.success) {
+                    document.getElementById('success-order').textContent = '#' + result.order_number;
+                    cart = []; saveCart(); updateCartBadge();
+                    showPage('success');
+                } else showToast('Error: ' + result.message);
+            } catch (e) { showToast('Gagal membuat pesanan'); }
+        }
+
+        function backToHome() { showPage('home'); selectedPayment = null; }
+
+        // ==================== AUTH FUNCTIONS ====================
+        let pendingOtpUserId = null;
+        let pendingOtpEmail = null;
+
+        async function doLogin() {
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            if (!email || !password) { showToast('Isi email dan password'); return; }
+            try {
+                const res = await fetch('/TokoOlahraga/php/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'login', email, password }) });
+                const result = await res.json();
+                if (result.success) { currentUser = result.user; sessionStorage.setItem('currentUser', JSON.stringify(currentUser)); localStorage.setItem('user', JSON.stringify(currentUser)); updateNav(); showToast('Login berhasil!'); showPage('home'); }
+                else if (result.requires_otp) { openOtpPage(result.user_id, result.email); showToast(result.message); }
+                else showToast(result.message);
+            } catch (e) { showToast('Login gagal'); }
+        }
+
+        async function doRegister() {
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-password').value;
+            const gender = document.getElementById('reg-gender').value;
+            const height = parseInt(document.getElementById('reg-height').value);
+            const weight = parseInt(document.getElementById('reg-weight').value);
+            const dob = document.getElementById('reg-dob').value;
+            if (!name || !email || !password || !height || !weight || !dob) { showToast('Lengkapi semua data'); return; }
+            if (selectedHobbies.length === 0) { showToast('Pilih minimal 1 hobi'); return; }
+            if (password.length < 6) { showToast('Password min 6 karakter'); return; }
+            try {
+                const res = await fetch('/TokoOlahraga/php/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'register', name, email, password, gender, height, weight, birthDate: dob, hobbies: selectedHobbies }) });
+                const result = await res.json();
+                if (result.success && result.requires_otp) { openOtpPage(result.user_id, result.email); showToast(result.message); }
+                else if (result.success) { currentUser = result.user; sessionStorage.setItem('currentUser', JSON.stringify(currentUser)); localStorage.setItem('user', JSON.stringify(currentUser)); updateNav(); showToast('Pendaftaran berhasil!'); showPage('home'); }
+                else showToast(result.message);
+            } catch (e) { showToast('Registrasi gagal'); }
+        }
+
+        function openOtpPage(userId, email) {
+            pendingOtpUserId = userId;
+            pendingOtpEmail = email;
+            document.getElementById('otp-email-display').textContent = email || '-';
+            document.getElementById('otp-code').value = '';
+            showPage('otp');
+        }
+
+        async function doVerifyOtp() {
+            const otp = document.getElementById('otp-code').value.trim();
+            if (!pendingOtpUserId) { showToast('Sesi OTP tidak ditemukan, silakan login/daftar ulang'); showPage('login'); return; }
+            if (!otp || otp.length !== 6) { showToast('Masukkan 6 digit kode OTP'); return; }
+            try {
+                const res = await fetch('/TokoOlahraga/php/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'verify_otp', user_id: pendingOtpUserId, otp }) });
+                const result = await res.json();
+                if (result.success) {
+                    currentUser = result.user;
+                    sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    localStorage.setItem('user', JSON.stringify(currentUser));
+                    pendingOtpUserId = null; pendingOtpEmail = null;
+                    updateNav(); showToast('Verifikasi berhasil!'); showPage('home');
+                } else {
+                    showToast(result.message);
+                }
+            } catch (e) { showToast('Verifikasi OTP gagal'); }
+        }
+
+        async function doResendOtp() {
+            if (!pendingOtpUserId) { showToast('Sesi OTP tidak ditemukan, silakan login/daftar ulang'); showPage('login'); return; }
+            try {
+                const res = await fetch('/TokoOlahraga/php/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'resend_otp', user_id: pendingOtpUserId }) });
+                const result = await res.json();
+                showToast(result.message);
+            } catch (e) { showToast('Gagal mengirim ulang OTP'); }
+        }
+
+        function logout() { sessionStorage.removeItem('currentUser'); localStorage.removeItem('user'); currentUser = null; updateNav(); showToast('Logout berhasil'); showPage('home'); }
+
+        function updateNav() {
+            const navAuth = document.getElementById('nav-auth'), navUser = document.getElementById('nav-user'), navGreeting = document.getElementById('nav-greeting'), navProfile = document.getElementById('nav-profile-link');
+            if (currentUser) { navAuth.style.display = 'none'; navUser.style.display = 'flex'; navGreeting.textContent = '👋 ' + (currentUser.name || '').split(' ')[0]; navProfile.style.display = 'block'; loadProfile();
+                // Tampilkan link Database hanya untuk admin
+                const navAdmin = document.getElementById('nav-admin-link');
+                if (navAdmin) navAdmin.style.display = currentUser.role === 'admin' ? 'block' : 'none';
+            }
+            else { navAuth.style.display = 'block'; navUser.style.display = 'none'; navProfile.style.display = 'none';
+                const navAdmin = document.getElementById('nav-admin-link');
+                if (navAdmin) navAdmin.style.display = 'none';
+            }
+        }
+
+        async function loadProfile() {
+            if (!currentUser) return;
+            const infoDiv = document.getElementById('profile-info');
+            const recDiv = document.getElementById('profile-recommendations');
+
+            if (infoDiv) {
+                const hobbyNames = { lari: '🏃 Lari', gym: '🏋️ Gym', 'sepak-bola': '⚽ Sepak Bola', basket: '🏀 Basket', renang: '🏊 Renang', bersepeda: '🚴 Bersepeda', yoga: '🧘 Yoga', badminton: '🏸 Badminton' };
+                const bmi = (currentUser.weight / ((currentUser.height / 100) ** 2)).toFixed(1);
+                let bmiStatus = '';
+                if (bmi < 18.5) bmiStatus = 'Underweight';
+                else if (bmi < 25) bmiStatus = 'Normal';
+                else if (bmi < 30) bmiStatus = 'Overweight';
+                else bmiStatus = 'Obesitas';
+
+                infoDiv.innerHTML = `
+                    <div class="text-center mb-3">
+                        <div class="profile-avatar"><span>${currentUser.name?.charAt(0).toUpperCase() || '👤'}</span></div>
+                        <h5>${currentUser.name}</h5>
+                        <p class="text-muted small">${currentUser.email}</p>
+                    </div>
+                    <hr>
+                    <div class="row mb-2"><div class="col-6"><small class="text-muted">Gender</small></div><div class="col-6 text-end"><strong>${currentUser.gender}</strong></div></div>
+                    <div class="row mb-2"><div class="col-6"><small class="text-muted">Usia</small></div><div class="col-6 text-end"><strong>${currentUser.age} tahun</strong></div></div>
+                    <div class="row mb-2"><div class="col-6"><small class="text-muted">Tinggi / Berat</small></div><div class="col-6 text-end"><strong>${currentUser.height} cm / ${currentUser.weight} kg</strong></div></div>
+                    <div class="row mb-2"><div class="col-6"><small class="text-muted">BMI</small></div><div class="col-6 text-end"><strong class="text-danger">${bmi} (${bmiStatus})</strong></div></div>
+                    <hr>
+                    <div><strong>🏅 Hobi Olahraga</strong></div>
+                    <div class="mt-2 mb-3">${currentUser.hobbies?.map(h => `<span class="badge bg-danger me-1 mb-1" style="background: var(--fire)!important;">${hobbyNames[h] || h}</span>`).join('') || '-'}</div>
+                    <hr>
+                    <div class="d-grid gap-2">
+                        <button class="btn-fire" style="padding: 10px; font-size: 14px;" onclick="openUpdateModal()"><i class="fas fa-user-edit"></i> Edit Profil</button>
+                        <button class="btn-ghost" style="padding: 10px; font-size: 14px; color: #dc3545; border-color: #dc3545;" onclick="showDeleteModal()"><i class="fas fa-trash-alt"></i> Hapus Akun</button>
+                    </div>
+                `;
+            }
+
+            if (recDiv) {
+                recDiv.innerHTML = '<div class="text-center py-3"><div class="spinner-border text-danger spinner-border-sm"></div> Memuat rekomendasi...</div>';
+                try {
+                    const res = await fetch('/TokoOlahraga/php/api/ai-recommend.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id: currentUser.id }) });
+                    const data = await res.json();
+                    if (data.success && data.recommendations && data.recommendations.length > 0) {
+                        recDiv.innerHTML = data.recommendations.map(r => `
+                            <div class="p-3 mb-2 border rounded d-flex justify-content-between align-items-center" onclick="addToCart(${r.id})" style="cursor:pointer; transition: all 0.2s;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div style="font-size: 32px;">${r.icon || '🏷️'}</div>
+                                    <div><div><strong>${r.name}</strong></div><small class="text-muted">${r.category}</small></div>
+                                </div>
+                                <div class="text-end"><div class="text-danger fw-bold">${r.price_formatted}</div><span class="badge" style="background: var(--fire);">⚡ ${r.match_score}%</span></div>
+                            </div>
+                        `).join('');
+                    } else { recDiv.innerHTML = '<p class="text-muted text-center py-3">Tidak ada rekomendasi. Lengkapi profil hobimu!</p>'; }
+                } catch (e) { recDiv.innerHTML = '<p class="text-muted text-center py-3">Gagal memuat rekomendasi</p>'; }
+            }
+        }
+
+        // ==================== UPDATE & DELETE PROFILE FUNCTIONS ====================
+        function openUpdateModal() {
+            if (!currentUser) return;
+            document.getElementById('update-name').value = currentUser.name || '';
+            document.getElementById('update-gender').value = currentUser.gender || 'Pria';
+            document.getElementById('update-height').value = currentUser.height || '';
+            document.getElementById('update-weight').value = currentUser.weight || '';
+            if (currentUser.birth_date) {
+                const date = new Date(currentUser.birth_date);
+                document.getElementById('update-dob').value = date.toISOString().split('T')[0];
+            }
+            document.getElementById('update-password').value = '';
+            updateSelectedHobbies = [...(currentUser.hobbies || [])];
+            document.querySelectorAll('.update-hchip').forEach(chip => {
+                const hobbyId = chip.getAttribute('data-update-hobby');
+                if (updateSelectedHobbies.includes(hobbyId)) chip.classList.add('active');
+                else chip.classList.remove('active');
+            });
+            const modal = new bootstrap.Modal(document.getElementById('updateProfileModal'));
+            modal.show();
+        }
+
+        async function updateProfile() {
+            const name = document.getElementById('update-name').value.trim();
+            const gender = document.getElementById('update-gender').value;
+            const height = parseInt(document.getElementById('update-height').value);
+            const weight = parseInt(document.getElementById('update-weight').value);
+            const dob = document.getElementById('update-dob').value;
+            const newPassword = document.getElementById('update-password').value;
+            if (!name || !height || !weight || !dob) { showToast('Lengkapi semua data!'); return; }
+            if (updateSelectedHobbies.length === 0) { showToast('Pilih minimal 1 hobi!'); return; }
+            if (newPassword && newPassword.length < 6) { showToast('Password baru minimal 6 karakter!'); return; }
+            const updateData = { user_id: currentUser.id, name, gender, height, weight, birthDate: dob, hobbies: updateSelectedHobbies };
+            if (newPassword) updateData.password = newPassword;
+            try {
+                const res = await fetch('/TokoOlahraga/php/api/auth.php', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updateData) });
+                const result = await res.json();
+                if (result.success) {
+                    currentUser = result.user;
+                    sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    showToast('Profil berhasil diperbarui!');
+                    loadProfile();
+                    updateNav();
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('updateProfileModal'));
+                    modal.hide();
+                } else { showToast(result.message); }
+            } catch (e) { showToast('Gagal update profil'); }
+        }
+
+        function showDeleteModal() {
+            const modal = new bootstrap.Modal(document.getElementById('deleteAccountModal'));
+            modal.show();
+        }
+
+        async function deleteAccount() {
+            if (!currentUser) return;
+            try {
+                const res = await fetch('/TokoOlahraga/php/api/auth.php', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id: currentUser.id }) });
+                const result = await res.json();
+                if (result.success) {
+                    showToast('Akun berhasil dihapus');
+                    logout();
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('deleteAccountModal'));
+                    if (modal) modal.hide();
+                } else { showToast(result.message); }
+            } catch (e) { showToast('Gagal menghapus akun'); }
+        }
+
+        // ==================== NAVIGATION ====================
+        function showPage(page) {
+            // Guard: halaman database hanya untuk admin
+            if (page === 'database') {
+                if (!currentUser || currentUser.role !== 'admin') {
+                    showToast('Akses ditolak. Hanya admin yang dapat mengakses halaman ini.');
+                    return;
+                }
+            }
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + page).classList.add('active');
+            window.scrollTo(0, 0);
+            if (page === 'profile' && currentUser) loadProfile();
+            if (page === 'checkout') { renderSidebar(); renderPaymentGrid(); setStep(1); }
+            if (page === 'database' && currentUser?.role === 'admin') loadAdminData();
+        }
+        function scrollToProducts() { showPage('home'); setTimeout(() => document.getElementById('products-section')?.scrollIntoView({ behavior: 'smooth' }), 300); }
+
+        // ==================== ADMIN DATABASE ====================
+        const ADMIN_API = '/TokoOlahraga/php/api/admin.php';
+
+        function adminHeaders() {
+            return { 'Content-Type': 'application/json', 'X-Admin-ID': currentUser?.id ?? '' };
+        }
+
+        async function loadAdminData() {
+            // Load overview stats
+            try {
+                const res  = await fetch(`${ADMIN_API}?resource=overview&admin_id=${currentUser.id}`);
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('stat-users').textContent    = data.total_users;
+                    document.getElementById('stat-products').textContent = data.total_products;
+                    document.getElementById('stat-orders').textContent   = data.total_orders;
+                    document.getElementById('stat-revenue').textContent  = 'Rp ' + Number(data.total_revenue).toLocaleString('id-ID');
+                }
+            } catch(e) { console.error('Admin overview error', e); }
+            // Load active tab
+            const activeTab = document.querySelector('.admin-tab.active')?.id?.replace('tab-','') || 'users';
+            loadAdminTab(activeTab);
+        }
+
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            ['users','products','orders'].forEach(t => {
+                document.getElementById('admin-tab-' + t).style.display = t === tab ? 'block' : 'none';
+            });
+            loadAdminTab(tab);
+        }
+
+        async function loadAdminTab(tab) {
+            try {
+                const res  = await fetch(`${ADMIN_API}?resource=${tab}&admin_id=${currentUser.id}`);
+                const data = await res.json();
+                if (!data.success) { showToast(data.message || 'Gagal memuat data'); return; }
+                if (tab === 'users')    renderUsersTable(data.users);
+                if (tab === 'products') renderProductsTable(data.products);
+                if (tab === 'orders')   renderOrdersTable(data.orders);
+            } catch(e) { showToast('Error memuat data admin'); }
+        }
+
+        function renderUsersTable(users) {
+            const tbody = document.getElementById('tbody-users');
+            if (!users || users.length === 0) { tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted">Tidak ada data</td></tr>'; return; }
+            tbody.innerHTML = users.map(u => `
+                <tr>
+                    <td>${u.id}</td>
+                    <td><strong>${u.name}</strong></td>
+                    <td style="font-size:11px;">${u.email}</td>
+                    <td>${u.gender}</td>
+                    <td>${u.age} th</td>
+                    <td>
+                        <select onchange="updateUserRole(${u.id}, this.value)" style="background:#222;color:${u.role==='admin'?'#ff4444':'#aaa'};border:1px solid #444;border-radius:4px;padding:2px 6px;font-size:11px;">
+                            <option value="user"  ${u.role==='user' ?'selected':''}>user</option>
+                            <option value="admin" ${u.role==='admin'?'selected':''}>admin</option>
+                        </select>
+                    </td>
+                    <td style="font-size:11px;">${new Date(u.created_at).toLocaleDateString('id-ID')}</td>
+                    <td>
+                        ${u.id != currentUser.id ? `<button onclick="deleteAdminUser(${u.id})" style="background:#c0392b;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:11px;cursor:pointer;">Hapus</button>` : '<span class="text-muted" style="font-size:11px;">Anda</span>'}
+                    </td>
+                </tr>`).join('');
+        }
+
+        function renderProductsTable(products) {
+            const tbody = document.getElementById('tbody-products');
+            if (!products || products.length === 0) { tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">Tidak ada data</td></tr>'; return; }
+            tbody.innerHTML = products.map(p => `
+                <tr>
+                    <td>${p.id}</td>
+                    <td>${p.icon} ${p.name}</td>
+                    <td>${p.category}</td>
+                    <td>Rp ${Number(p.price).toLocaleString('id-ID')}</td>
+                    <td>${p.badge ? `<span class="badge bg-danger">${p.badge}</span>` : '—'}</td>
+                    <td>
+                        <input type="number" value="${p.stock}" min="0" onblur="updateProductStock(${p.id}, this.value)"
+                            style="width:65px;background:#222;color:#fff;border:1px solid #444;border-radius:4px;padding:2px 6px;font-size:12px;">
+                    </td>
+                    <td style="font-size:11px;color:#aaa;">Klik stok untuk edit</td>
+                </tr>`).join('');
+        }
+
+        const statusColors = { pending:'#f9ca24', processing:'#4ecdc4', shipped:'#6c5ce7', delivered:'#2ecc71', cancelled:'#e74c3c' };
+        function renderOrdersTable(orders) {
+            const tbody = document.getElementById('tbody-orders');
+            if (!orders || orders.length === 0) { tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">Tidak ada data</td></tr>'; return; }
+            tbody.innerHTML = orders.map(o => `
+                <tr>
+                    <td style="font-size:11px;font-weight:700;">${o.order_number}</td>
+                    <td>${o.customer_name}<div style="font-size:10px;color:#aaa;">${o.customer_phone}</div></td>
+                    <td>${o.city}</td>
+                    <td style="font-weight:700;">Rp ${Number(o.total).toLocaleString('id-ID')}</td>
+                    <td>
+                        <select onchange="updateOrderStatus(${o.id}, this.value)" style="background:#222;color:${statusColors[o.status]||'#fff'};border:1px solid #444;border-radius:4px;padding:2px 6px;font-size:11px;">
+                            ${['pending','processing','shipped','delivered','cancelled'].map(s=>`<option value="${s}" ${o.status===s?'selected':''}>${s}</option>`).join('')}
+                        </select>
+                    </td>
+                    <td style="font-size:11px;">${new Date(o.created_at).toLocaleDateString('id-ID')}</td>
+                    <td style="font-size:10px;color:#aaa;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${o.items_summary||''}">${o.items_summary||'—'}</td>
+                </tr>`).join('');
+        }
+
+        async function updateUserRole(userId, role) {
+            try {
+                const res  = await fetch(ADMIN_API, { method:'PUT', headers: adminHeaders(), body: JSON.stringify({ resource:'user_role', user_id: userId, role }) });
+                const data = await res.json();
+                showToast(data.message || (data.success ? 'Role diperbarui' : 'Gagal'));
+                if (data.success) loadAdminTab('users');
+            } catch(e) { showToast('Error update role'); }
+        }
+
+        async function updateProductStock(productId, stock) {
+            try {
+                const res  = await fetch(ADMIN_API, { method:'PUT', headers: adminHeaders(), body: JSON.stringify({ resource:'product_stock', product_id: productId, stock: parseInt(stock) }) });
+                const data = await res.json();
+                showToast(data.message || (data.success ? 'Stok diperbarui' : 'Gagal'));
+            } catch(e) { showToast('Error update stok'); }
+        }
+
+        async function updateOrderStatus(orderId, status) {
+            try {
+                const res  = await fetch(ADMIN_API, { method:'PUT', headers: adminHeaders(), body: JSON.stringify({ resource:'order_status', order_id: orderId, status }) });
+                const data = await res.json();
+                showToast(data.message || (data.success ? 'Status diperbarui' : 'Gagal'));
+            } catch(e) { showToast('Error update status'); }
+        }
+
+        async function deleteAdminUser(userId) {
+            if (!confirm('Yakin ingin menghapus user ini?')) return;
+            try {
+                const res  = await fetch(ADMIN_API, { method:'DELETE', headers: adminHeaders(), body: JSON.stringify({ resource:'user', user_id: userId }) });
+                const data = await res.json();
+                showToast(data.message || (data.success ? 'User dihapus' : 'Gagal'));
+                if (data.success) loadAdminTab('users');
+            } catch(e) { showToast('Error hapus user'); }
+        }
+
+        // ==================== INIT ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+            renderHobbyGrid();
+            renderUpdateHobbyGrid();
+            loadCart();
+            const saved = sessionStorage.getItem('currentUser');
+            if (saved) { currentUser = JSON.parse(saved); updateNav(); }
+            document.getElementById('reg-dob')?.setAttribute('max', new Date().toISOString().split('T')[0]);
+            updateCartBadge();
+        });
+    </script>
+</body>
+
+</html>
