@@ -682,6 +682,96 @@
                 display: none;
             }
         }
+
+        /* === Database Admin: kartu statistik & tabel putih, border hitam, teks hitam === */
+        #admin-stats>div>div {
+            background: #ffffff !important;
+            border: 1px solid #000000 !important;
+        }
+
+        #admin-stats>div>div [id^="stat-"] {
+            color: #000000 !important;
+        }
+
+        #admin-stats .text-muted {
+            color: #000000 !important;
+            opacity: 0.7;
+        }
+
+        #table-users,
+        #table-products,
+        #table-orders {
+            background: #ffffff;
+            border: 1px solid #000000;
+            color: #000000;
+        }
+
+        #table-users thead,
+        #table-products thead,
+        #table-orders thead {
+            background: #ffffff;
+        }
+
+        #table-users th,
+        #table-products th,
+        #table-orders th,
+        #table-users td,
+        #table-products td,
+        #table-orders td {
+            background: #ffffff !important;
+            color: #000000 !important;
+            border-color: #000000 !important;
+        }
+
+        #table-users.table-hover tbody tr:hover td,
+        #table-products.table-hover tbody tr:hover td,
+        #table-orders.table-hover tbody tr:hover td {
+            background: #f0f0f0 !important;
+            color: #000000 !important;
+        }
+
+        #table-users .text-muted,
+        #table-products .text-muted,
+        #table-orders .text-muted {
+            color: #555555 !important;
+        }
+
+        #page-database #admin-stats .p-3 {
+            background: #ffffff !important;
+            border: 2px solid #000000 !important;
+            color: #000000 !important;
+        }
+
+        #page-database #admin-stats .text-muted {
+            color: #333333 !important;
+        }
+
+        #page-database table.table-dark {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border: 2px solid #000000 !important;
+            border-collapse: collapse;
+        }
+
+        #page-database table.table-dark thead tr {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+
+        #page-database table.table-dark th,
+        #page-database table.table-dark td {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border: 1px solid #000000 !important;
+        }
+
+        #page-database table.table-dark tbody tr:hover td {
+            background-color: #f2f2f2 !important;
+        }
+
+        #page-database table.table-dark .text-muted {
+            color: #555555 !important;
+        }
     </style>
 </head>
 
@@ -716,7 +806,8 @@
     <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
     <div class="cart-drawer" id="cart-drawer">
         <div class="cart-head">
-            <h5 class="m-0">🛒 Keranjang</h5><button class="btn-close" onclick="closeCart()"></button>
+            <h5 class="m-0">🛒 Keranjang</h5><button type="button" class="btn-close" onclick="closeCart()"
+                aria-label="Tutup keranjang"></button>
         </div>
         <div class="cart-items-list" id="cart-items-list"></div>
         <div class="cart-footer" id="cart-footer" style="display:none;">
@@ -861,7 +952,8 @@
             <div class="modal-content">
                 <div class="modal-header" style="background: linear-gradient(90deg, #FF4D00, #FF8C00); color: white;">
                     <h5 class="modal-title"><i class="fas fa-user-edit"></i> Update Profil</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Tutup"></button>
                 </div>
                 <div class="modal-body">
                     <form id="updateProfileForm">
@@ -914,7 +1006,8 @@
             <div class="modal-content">
                 <div class="modal-header" style="background: #dc3545; color: white;">
                     <h5 class="modal-title"><i class="fas fa-exclamation-triangle"></i> Hapus Akun</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Tutup"></button>
                 </div>
                 <div class="modal-body">
                     <div class="text-center">
@@ -1046,45 +1139,70 @@
     <div class="page" id="page-database">
         <div class="container py-5 mt-5">
             <div class="d-flex align-items-center mb-4 gap-3">
-                <h2 style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;margin:0;">⚙️ DATABASE <span style="color:var(--fire)">ADMIN</span></h2>
+                <h2 style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;margin:0;">⚙️ DATABASE <span
+                        style="color:var(--fire)">ADMIN</span></h2>
                 <span class="badge bg-danger ms-2" style="font-size:11px;">ADMIN ONLY</span>
             </div>
 
             <!-- Stats Overview -->
             <div class="row g-3 mb-4" id="admin-stats">
-                <div class="col-6 col-md-3"><div class="p-3 rounded-3 text-center" style="background:#1a1a2e;border:1px solid #333;">
-                    <div style="font-size:28px;font-weight:700;color:var(--fire)" id="stat-users">—</div>
-                    <div class="text-muted small">Total Users</div>
-                </div></div>
-                <div class="col-6 col-md-3"><div class="p-3 rounded-3 text-center" style="background:#1a1a2e;border:1px solid #333;">
-                    <div style="font-size:28px;font-weight:700;color:#4ecdc4" id="stat-products">—</div>
-                    <div class="text-muted small">Total Produk</div>
-                </div></div>
-                <div class="col-6 col-md-3"><div class="p-3 rounded-3 text-center" style="background:#1a1a2e;border:1px solid #333;">
-                    <div style="font-size:28px;font-weight:700;color:#f9ca24" id="stat-orders">—</div>
-                    <div class="text-muted small">Total Pesanan</div>
-                </div></div>
-                <div class="col-6 col-md-3"><div class="p-3 rounded-3 text-center" style="background:#1a1a2e;border:1px solid #333;">
-                    <div style="font-size:22px;font-weight:700;color:#6c5ce7" id="stat-revenue">—</div>
-                    <div class="text-muted small">Total Pendapatan</div>
-                </div></div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 rounded-3 text-center" style="background:#1a1a2e;border:1px solid #333;">
+                        <div style="font-size:28px;font-weight:700;color:var(--fire)" id="stat-users">—</div>
+                        <div class="text-muted small">Total Users</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 rounded-3 text-center" style="background:#1a1a2e;border:1px solid #333;">
+                        <div style="font-size:28px;font-weight:700;color:#4ecdc4" id="stat-products">—</div>
+                        <div class="text-muted small">Total Produk</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 rounded-3 text-center" style="background:#1a1a2e;border:1px solid #333;">
+                        <div style="font-size:28px;font-weight:700;color:#f9ca24" id="stat-orders">—</div>
+                        <div class="text-muted small">Total Pesanan</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 rounded-3 text-center" style="background:#1a1a2e;border:1px solid #333;">
+                        <div style="font-size:22px;font-weight:700;color:#6c5ce7" id="stat-revenue">—</div>
+                        <div class="text-muted small">Total Pendapatan</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Tabs -->
             <div class="d-flex gap-2 mb-4 flex-wrap">
-                <button class="btn-fire admin-tab active" onclick="switchAdminTab('users')" id="tab-users">👥 Users</button>
-                <button class="btn-fire admin-tab" onclick="switchAdminTab('products')" id="tab-products" style="background:#4ecdc4;border-color:#4ecdc4;">📦 Produk</button>
-                <button class="btn-fire admin-tab" onclick="switchAdminTab('orders')" id="tab-orders" style="background:#f9ca24;border-color:#f9ca24;color:#000;">🛒 Pesanan</button>
+                <button class="btn-fire admin-tab active" onclick="switchAdminTab('users')" id="tab-users">👥
+                    Users</button>
+                <button class="btn-fire admin-tab" onclick="switchAdminTab('products')" id="tab-products"
+                    style="background:#4ecdc4;border-color:#4ecdc4;">📦 Produk</button>
+                <button class="btn-fire admin-tab" onclick="switchAdminTab('orders')" id="tab-orders"
+                    style="background:#f9ca24;border-color:#f9ca24;color:#000;">🛒 Pesanan</button>
             </div>
 
             <!-- Users Table -->
             <div id="admin-tab-users">
                 <div style="overflow-x:auto;">
                     <table class="table table-dark table-hover" id="table-users" style="font-size:13px;">
-                        <thead><tr>
-                            <th>ID</th><th>Nama</th><th>Email</th><th>Gender</th><th>Usia</th><th>Role</th><th>Daftar</th><th>Aksi</th>
-                        </tr></thead>
-                        <tbody id="tbody-users"><tr><td colspan="8" class="text-center text-muted">Memuat data...</td></tr></tbody>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Usia</th>
+                                <th>Role</th>
+                                <th>Daftar</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-users">
+                            <tr>
+                                <td colspan="8" class="text-center text-muted">Memuat data...</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -1093,10 +1211,22 @@
             <div id="admin-tab-products" style="display:none;">
                 <div style="overflow-x:auto;">
                     <table class="table table-dark table-hover" id="table-products" style="font-size:13px;">
-                        <thead><tr>
-                            <th>ID</th><th>Nama</th><th>Kategori</th><th>Harga</th><th>Badge</th><th>Stok</th><th>Aksi</th>
-                        </tr></thead>
-                        <tbody id="tbody-products"><tr><td colspan="7" class="text-center text-muted">Memuat data...</td></tr></tbody>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Kategori</th>
+                                <th>Harga</th>
+                                <th>Badge</th>
+                                <th>Stok</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-products">
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">Memuat data...</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -1105,10 +1235,22 @@
             <div id="admin-tab-orders" style="display:none;">
                 <div style="overflow-x:auto;">
                     <table class="table table-dark table-hover" id="table-orders" style="font-size:13px;">
-                        <thead><tr>
-                            <th>No. Pesanan</th><th>Pelanggan</th><th>Kota</th><th>Total</th><th>Status</th><th>Tanggal</th><th>Aksi</th>
-                        </tr></thead>
-                        <tbody id="tbody-orders"><tr><td colspan="7" class="text-center text-muted">Memuat data...</td></tr></tbody>
+                        <thead>
+                            <tr>
+                                <th>No. Pesanan</th>
+                                <th>Pelanggan</th>
+                                <th>Kota</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Tanggal</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-orders">
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">Memuat data...</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -1193,7 +1335,7 @@
         // ==================== PRODUCTS ====================
         async function loadProducts() {
             try {
-                const res = await fetch('/TokoOlahraga/php/api/products.php');
+                const res = await fetch('php/api/products.php');
                 const data = await res.json();
                 if (data.success && data.products) products = data.products;
                 else products = [
@@ -1410,7 +1552,7 @@
                 items: cart.map(i => ({ id: i.id, name: i.name, icon: i.icon, quantity: i.qty, price: i.raw }))
             };
             try {
-                const res = await fetch('/TokoOlahraga/php/api/orders.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(orderData) });
+                const res = await fetch('php/api/orders.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(orderData) });
                 const result = await res.json();
                 if (result.success) {
                     document.getElementById('success-order').textContent = '#' + result.order_number;
@@ -1431,7 +1573,7 @@
             const password = document.getElementById('login-password').value;
             if (!email || !password) { showToast('Isi email dan password'); return; }
             try {
-                const res = await fetch('/TokoOlahraga/php/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'login', email, password }) });
+                const res = await fetch('php/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'login', email, password }) });
                 const result = await res.json();
                 if (result.success) { currentUser = result.user; sessionStorage.setItem('currentUser', JSON.stringify(currentUser)); localStorage.setItem('user', JSON.stringify(currentUser)); updateNav(); showToast('Login berhasil!'); showPage('home'); }
                 else if (result.requires_otp) { openOtpPage(result.user_id, result.email); showToast(result.message); }
@@ -1451,7 +1593,7 @@
             if (selectedHobbies.length === 0) { showToast('Pilih minimal 1 hobi'); return; }
             if (password.length < 6) { showToast('Password min 6 karakter'); return; }
             try {
-                const res = await fetch('/TokoOlahraga/php/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'register', name, email, password, gender, height, weight, birthDate: dob, hobbies: selectedHobbies }) });
+                const res = await fetch('php/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'register', name, email, password, gender, height, weight, birthDate: dob, hobbies: selectedHobbies }) });
                 const result = await res.json();
                 if (result.success && result.requires_otp) { openOtpPage(result.user_id, result.email); showToast(result.message); }
                 else if (result.success) { currentUser = result.user; sessionStorage.setItem('currentUser', JSON.stringify(currentUser)); localStorage.setItem('user', JSON.stringify(currentUser)); updateNav(); showToast('Pendaftaran berhasil!'); showPage('home'); }
@@ -1472,7 +1614,7 @@
             if (!pendingOtpUserId) { showToast('Sesi OTP tidak ditemukan, silakan login/daftar ulang'); showPage('login'); return; }
             if (!otp || otp.length !== 6) { showToast('Masukkan 6 digit kode OTP'); return; }
             try {
-                const res = await fetch('/TokoOlahraga/php/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'verify_otp', user_id: pendingOtpUserId, otp }) });
+                const res = await fetch('php/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'verify_otp', user_id: pendingOtpUserId, otp }) });
                 const result = await res.json();
                 if (result.success) {
                     currentUser = result.user;
@@ -1489,7 +1631,7 @@
         async function doResendOtp() {
             if (!pendingOtpUserId) { showToast('Sesi OTP tidak ditemukan, silakan login/daftar ulang'); showPage('login'); return; }
             try {
-                const res = await fetch('/TokoOlahraga/php/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'resend_otp', user_id: pendingOtpUserId }) });
+                const res = await fetch('php/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'resend_otp', user_id: pendingOtpUserId }) });
                 const result = await res.json();
                 showToast(result.message);
             } catch (e) { showToast('Gagal mengirim ulang OTP'); }
@@ -1499,12 +1641,14 @@
 
         function updateNav() {
             const navAuth = document.getElementById('nav-auth'), navUser = document.getElementById('nav-user'), navGreeting = document.getElementById('nav-greeting'), navProfile = document.getElementById('nav-profile-link');
-            if (currentUser) { navAuth.style.display = 'none'; navUser.style.display = 'flex'; navGreeting.textContent = '👋 ' + (currentUser.name || '').split(' ')[0]; navProfile.style.display = 'block'; loadProfile();
+            if (currentUser) {
+                navAuth.style.display = 'none'; navUser.style.display = 'flex'; navGreeting.textContent = '👋 ' + (currentUser.name || '').split(' ')[0]; navProfile.style.display = 'block'; loadProfile();
                 // Tampilkan link Database hanya untuk admin
                 const navAdmin = document.getElementById('nav-admin-link');
                 if (navAdmin) navAdmin.style.display = currentUser.role === 'admin' ? 'block' : 'none';
             }
-            else { navAuth.style.display = 'block'; navUser.style.display = 'none'; navProfile.style.display = 'none';
+            else {
+                navAuth.style.display = 'block'; navUser.style.display = 'none'; navProfile.style.display = 'none';
                 const navAdmin = document.getElementById('nav-admin-link');
                 if (navAdmin) navAdmin.style.display = 'none';
             }
@@ -1549,7 +1693,7 @@
             if (recDiv) {
                 recDiv.innerHTML = '<div class="text-center py-3"><div class="spinner-border text-danger spinner-border-sm"></div> Memuat rekomendasi...</div>';
                 try {
-                    const res = await fetch('/TokoOlahraga/php/api/ai-recommend.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id: currentUser.id }) });
+                    const res = await fetch('php/api/ai-recommend.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id: currentUser.id }) });
                     const data = await res.json();
                     if (data.success && data.recommendations && data.recommendations.length > 0) {
                         recDiv.innerHTML = data.recommendations.map(r => `
@@ -1601,7 +1745,7 @@
             const updateData = { user_id: currentUser.id, name, gender, height, weight, birthDate: dob, hobbies: updateSelectedHobbies };
             if (newPassword) updateData.password = newPassword;
             try {
-                const res = await fetch('/TokoOlahraga/php/api/auth.php', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updateData) });
+                const res = await fetch('php/api/auth.php', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updateData) });
                 const result = await res.json();
                 if (result.success) {
                     currentUser = result.user;
@@ -1623,7 +1767,7 @@
         async function deleteAccount() {
             if (!currentUser) return;
             try {
-                const res = await fetch('/TokoOlahraga/php/api/auth.php', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id: currentUser.id }) });
+                const res = await fetch('php/api/auth.php', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id: currentUser.id }) });
                 const result = await res.json();
                 if (result.success) {
                     showToast('Akun berhasil dihapus');
@@ -1653,7 +1797,7 @@
         function scrollToProducts() { showPage('home'); setTimeout(() => document.getElementById('products-section')?.scrollIntoView({ behavior: 'smooth' }), 300); }
 
         // ==================== ADMIN DATABASE ====================
-        const ADMIN_API = '/TokoOlahraga/php/api/admin.php';
+        const ADMIN_API = 'php/api/admin.php';
 
         function adminHeaders() {
             return { 'Content-Type': 'application/json', 'X-Admin-ID': currentUser?.id ?? '' };
@@ -1662,24 +1806,24 @@
         async function loadAdminData() {
             // Load overview stats
             try {
-                const res  = await fetch(`${ADMIN_API}?resource=overview&admin_id=${currentUser.id}`);
+                const res = await fetch(`${ADMIN_API}?resource=overview&admin_id=${currentUser.id}`);
                 const data = await res.json();
                 if (data.success) {
-                    document.getElementById('stat-users').textContent    = data.total_users;
+                    document.getElementById('stat-users').textContent = data.total_users;
                     document.getElementById('stat-products').textContent = data.total_products;
-                    document.getElementById('stat-orders').textContent   = data.total_orders;
-                    document.getElementById('stat-revenue').textContent  = 'Rp ' + Number(data.total_revenue).toLocaleString('id-ID');
+                    document.getElementById('stat-orders').textContent = data.total_orders;
+                    document.getElementById('stat-revenue').textContent = 'Rp ' + Number(data.total_revenue).toLocaleString('id-ID');
                 }
-            } catch(e) { console.error('Admin overview error', e); }
+            } catch (e) { console.error('Admin overview error', e); }
             // Load active tab
-            const activeTab = document.querySelector('.admin-tab.active')?.id?.replace('tab-','') || 'users';
+            const activeTab = document.querySelector('.admin-tab.active')?.id?.replace('tab-', '') || 'users';
             loadAdminTab(activeTab);
         }
 
         function switchAdminTab(tab) {
             document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
             document.getElementById('tab-' + tab).classList.add('active');
-            ['users','products','orders'].forEach(t => {
+            ['users', 'products', 'orders'].forEach(t => {
                 document.getElementById('admin-tab-' + t).style.display = t === tab ? 'block' : 'none';
             });
             loadAdminTab(tab);
@@ -1687,13 +1831,13 @@
 
         async function loadAdminTab(tab) {
             try {
-                const res  = await fetch(`${ADMIN_API}?resource=${tab}&admin_id=${currentUser.id}`);
+                const res = await fetch(`${ADMIN_API}?resource=${tab}&admin_id=${currentUser.id}`);
                 const data = await res.json();
                 if (!data.success) { showToast(data.message || 'Gagal memuat data'); return; }
-                if (tab === 'users')    renderUsersTable(data.users);
+                if (tab === 'users') renderUsersTable(data.users);
                 if (tab === 'products') renderProductsTable(data.products);
-                if (tab === 'orders')   renderOrdersTable(data.orders);
-            } catch(e) { showToast('Error memuat data admin'); }
+                if (tab === 'orders') renderOrdersTable(data.orders);
+            } catch (e) { showToast('Error memuat data admin'); }
         }
 
         function renderUsersTable(users) {
@@ -1707,9 +1851,9 @@
                     <td>${u.gender}</td>
                     <td>${u.age} th</td>
                     <td>
-                        <select onchange="updateUserRole(${u.id}, this.value)" style="background:#222;color:${u.role==='admin'?'#ff4444':'#aaa'};border:1px solid #444;border-radius:4px;padding:2px 6px;font-size:11px;">
-                            <option value="user"  ${u.role==='user' ?'selected':''}>user</option>
-                            <option value="admin" ${u.role==='admin'?'selected':''}>admin</option>
+                        <select onchange="updateUserRole(${u.id}, this.value)" style="background:#222;color:${u.role === 'admin' ? '#ff4444' : '#aaa'};border:1px solid #444;border-radius:4px;padding:2px 6px;font-size:11px;">
+                            <option value="user"  ${u.role === 'user' ? 'selected' : ''}>user</option>
+                            <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>admin</option>
                         </select>
                     </td>
                     <td style="font-size:11px;">${new Date(u.created_at).toLocaleDateString('id-ID')}</td>
@@ -1737,7 +1881,7 @@
                 </tr>`).join('');
         }
 
-        const statusColors = { pending:'#f9ca24', processing:'#4ecdc4', shipped:'#6c5ce7', delivered:'#2ecc71', cancelled:'#e74c3c' };
+        const statusColors = { pending: '#f9ca24', processing: '#4ecdc4', shipped: '#6c5ce7', delivered: '#2ecc71', cancelled: '#e74c3c' };
         function renderOrdersTable(orders) {
             const tbody = document.getElementById('tbody-orders');
             if (!orders || orders.length === 0) { tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">Tidak ada data</td></tr>'; return; }
@@ -1748,48 +1892,48 @@
                     <td>${o.city}</td>
                     <td style="font-weight:700;">Rp ${Number(o.total).toLocaleString('id-ID')}</td>
                     <td>
-                        <select onchange="updateOrderStatus(${o.id}, this.value)" style="background:#222;color:${statusColors[o.status]||'#fff'};border:1px solid #444;border-radius:4px;padding:2px 6px;font-size:11px;">
-                            ${['pending','processing','shipped','delivered','cancelled'].map(s=>`<option value="${s}" ${o.status===s?'selected':''}>${s}</option>`).join('')}
+                        <select onchange="updateOrderStatus(${o.id}, this.value)" style="background:#222;color:${statusColors[o.status] || '#fff'};border:1px solid #444;border-radius:4px;padding:2px 6px;font-size:11px;">
+                            ${['pending', 'processing', 'shipped', 'delivered', 'cancelled'].map(s => `<option value="${s}" ${o.status === s ? 'selected' : ''}>${s}</option>`).join('')}
                         </select>
                     </td>
                     <td style="font-size:11px;">${new Date(o.created_at).toLocaleDateString('id-ID')}</td>
-                    <td style="font-size:10px;color:#aaa;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${o.items_summary||''}">${o.items_summary||'—'}</td>
+                    <td style="font-size:10px;color:#aaa;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${o.items_summary || ''}">${o.items_summary || '—'}</td>
                 </tr>`).join('');
         }
 
         async function updateUserRole(userId, role) {
             try {
-                const res  = await fetch(ADMIN_API, { method:'PUT', headers: adminHeaders(), body: JSON.stringify({ resource:'user_role', user_id: userId, role }) });
+                const res = await fetch(ADMIN_API, { method: 'PUT', headers: adminHeaders(), body: JSON.stringify({ resource: 'user_role', user_id: userId, role }) });
                 const data = await res.json();
                 showToast(data.message || (data.success ? 'Role diperbarui' : 'Gagal'));
                 if (data.success) loadAdminTab('users');
-            } catch(e) { showToast('Error update role'); }
+            } catch (e) { showToast('Error update role'); }
         }
 
         async function updateProductStock(productId, stock) {
             try {
-                const res  = await fetch(ADMIN_API, { method:'PUT', headers: adminHeaders(), body: JSON.stringify({ resource:'product_stock', product_id: productId, stock: parseInt(stock) }) });
+                const res = await fetch(ADMIN_API, { method: 'PUT', headers: adminHeaders(), body: JSON.stringify({ resource: 'product_stock', product_id: productId, stock: parseInt(stock) }) });
                 const data = await res.json();
                 showToast(data.message || (data.success ? 'Stok diperbarui' : 'Gagal'));
-            } catch(e) { showToast('Error update stok'); }
+            } catch (e) { showToast('Error update stok'); }
         }
 
         async function updateOrderStatus(orderId, status) {
             try {
-                const res  = await fetch(ADMIN_API, { method:'PUT', headers: adminHeaders(), body: JSON.stringify({ resource:'order_status', order_id: orderId, status }) });
+                const res = await fetch(ADMIN_API, { method: 'PUT', headers: adminHeaders(), body: JSON.stringify({ resource: 'order_status', order_id: orderId, status }) });
                 const data = await res.json();
                 showToast(data.message || (data.success ? 'Status diperbarui' : 'Gagal'));
-            } catch(e) { showToast('Error update status'); }
+            } catch (e) { showToast('Error update status'); }
         }
 
         async function deleteAdminUser(userId) {
             if (!confirm('Yakin ingin menghapus user ini?')) return;
             try {
-                const res  = await fetch(ADMIN_API, { method:'DELETE', headers: adminHeaders(), body: JSON.stringify({ resource:'user', user_id: userId }) });
+                const res = await fetch(ADMIN_API, { method: 'DELETE', headers: adminHeaders(), body: JSON.stringify({ resource: 'user', user_id: userId }) });
                 const data = await res.json();
                 showToast(data.message || (data.success ? 'User dihapus' : 'Gagal'));
                 if (data.success) loadAdminTab('users');
-            } catch(e) { showToast('Error hapus user'); }
+            } catch (e) { showToast('Error hapus user'); }
         }
 
         // ==================== INIT ====================

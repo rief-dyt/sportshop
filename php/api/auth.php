@@ -1,3 +1,4 @@
+
 <?php
 // Menggunakan konfigurasi database terpusat
 require_once '../../config/database.php';
@@ -121,7 +122,7 @@ elseif ($method === 'POST') {
                 'success' => true,
                 'message' => $mailSent
                     ? 'Registrasi berhasil! Kode OTP telah dikirim ke email Anda.'
-                    : 'Registrasi berhasil, namun gagal mengirim email OTP. Silakan klik "Kirim ulang OTP".',
+                    : 'Registrasi berhasil! (Gagal kirim email, gunakan OTP lokal ini: ' . $otpCode . ')',
                 'requires_otp' => true,
                 'user_id' => $newUserId,
                 'email' => $input['email']
@@ -217,8 +218,10 @@ elseif ($method === 'POST') {
         }
 
         sendResponse([
-            'success' => $mailSent,
-            'message' => $mailSent ? 'Kode OTP baru telah dikirim ke email Anda.' : 'Gagal mengirim email OTP. Coba lagi beberapa saat.'
+            'success' => true,
+            'message' => $mailSent 
+                ? 'Kode OTP baru telah dikirim ke email Anda.' 
+                : 'Kode OTP baru berhasil dibuat! (Gagal kirim email, gunakan OTP lokal ini: ' . $otpCode . ')'
         ]);
     }
 

@@ -1,7 +1,7 @@
 // ============================================================
 // API Configuration - TokoOlahraga
 // ============================================================
-const API_BASE_URL = '/TokoOlahraga/php/api/';
+const API_BASE_URL = 'php/api/';
 
 class API {
     static async request(endpoint, method = 'GET', data = null) {

@@ -1,5 +1,5 @@
 <?php
-require_once 'controllers/MailController.php';
+require_once '../../controllers/MailController.php';
 
 $mailController = new MailController();
 $prosesKirim = $mailController->sendEmail(

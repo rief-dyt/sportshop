@@ -6,10 +6,17 @@
  * ============================================================
  */
 
-$host   = 'localhost';
-$dbname = 'toko_olahraga';
-$dbuser = 'root';
-$dbpass = '';
+require_once __DIR__ . '/config/config.php';
+
+if (!defined('DEV_MODE') || !DEV_MODE) {
+    http_response_code(403);
+    die("Akses ditolak. Fitur setup database dinonaktifkan di lingkungan produksi.");
+}
+
+$host   = DB_HOST;
+$dbname = DB_NAME;
+$dbuser = DB_USER;
+$dbpass = DB_PASS;
 
 $steps  = [];
 $success = true;
