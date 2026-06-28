@@ -118,11 +118,19 @@ elseif ($method === 'POST') {
                 $mailSent = false;
             }
 
+            $message = 'Registrasi berhasil! ';
+            if ($mailSent) {
+                $message .= 'Kode OTP telah dikirim ke email Anda.';
+            } else {
+                $message .= 'Gagal mengirimkan email verifikasi. Silakan klik "Kirim ulang OTP".';
+                if (defined('DEV_MODE') && DEV_MODE) {
+                    $message .= ' (DEV MODE - OTP: ' . $otpCode . ')';
+                }
+            }
+
             sendResponse([
                 'success' => true,
-                'message' => $mailSent
-                    ? 'Registrasi berhasil! Kode OTP telah dikirim ke email Anda.'
-                    : 'Registrasi berhasil! (Gagal kirim email, gunakan OTP lokal ini: ' . $otpCode . ')',
+                'message' => $message,
                 'requires_otp' => true,
                 'user_id' => $newUserId,
                 'email' => $input['email']
@@ -217,11 +225,19 @@ elseif ($method === 'POST') {
             $mailSent = false;
         }
 
+        $message = '';
+        if ($mailSent) {
+            $message = 'Kode OTP baru telah dikirim ke email Anda.';
+        } else {
+            $message = 'Gagal mengirimkan email verifikasi. Silakan coba kembali.';
+            if (defined('DEV_MODE') && DEV_MODE) {
+                $message .= ' (DEV MODE - OTP: ' . $otpCode . ')';
+            }
+        }
+
         sendResponse([
             'success' => true,
-            'message' => $mailSent 
-                ? 'Kode OTP baru telah dikirim ke email Anda.' 
-                : 'Kode OTP baru berhasil dibuat! (Gagal kirim email, gunakan OTP lokal ini: ' . $otpCode . ')'
+            'message' => $message
         ]);
     }
 
